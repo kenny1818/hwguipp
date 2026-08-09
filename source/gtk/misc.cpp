@@ -535,11 +535,11 @@ HB_FUNC(HWG_BIN2DC)
 
   // Internal I2BIN for Len
 
-  auto uiWidth = static_cast<HB_USHORT>(hb_parni(2));
+  auto uiWidth = static_cast<uint16_t>(hb_parni(2));
 
   // Internal I2BIN for Dec
 
-  auto uiDec = static_cast<HB_USHORT>(hb_parni(3));
+  auto uiDec = static_cast<uint16_t>(hb_parni(3));
 
   auto name = hb_parc(1);
 
