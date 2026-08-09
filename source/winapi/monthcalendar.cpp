@@ -57,9 +57,10 @@ HB_FUNC( HWG_SETMONTHCALENDARDATE ) // adaptation of hwg_Setdatepicker of file C
 
       hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
 
-      sysTime.wYear = static_cast<unsigned short>(lYear);
-      sysTime.wMonth = static_cast<unsigned short>(lMonth);
-      sysTime.wDay = static_cast<unsigned short>(lDay);
+      // TODO: cast to WORD ?
+      sysTime.wYear = static_cast<uint16_t>(lYear);
+      sysTime.wMonth = static_cast<uint16_t>(lMonth);
+      sysTime.wDay = static_cast<uint16_t>(lDay);
       sysTime.wDayOfWeek = 0;
       sysTime.wHour = 0;
       sysTime.wMinute = 0;

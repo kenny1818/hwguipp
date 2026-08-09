@@ -67,14 +67,15 @@ HB_FUNC(HWG_SETDATEPICKER)
       hb_timeDecode(lSeconds, &lHour, &lMinute, &lSecond, &lMilliseconds);
     }
 
-    sysTime.wYear = static_cast<unsigned short>(lYear);
-    sysTime.wMonth = static_cast<unsigned short>(lMonth);
-    sysTime.wDay = static_cast<unsigned short>(lDay);
+    // TODO: cast to WORD ?
+    sysTime.wYear = static_cast<uint16_t>(lYear);
+    sysTime.wMonth = static_cast<uint16_t>(lMonth);
+    sysTime.wDay = static_cast<uint16_t>(lDay);
     sysTime.wDayOfWeek = 0;
-    sysTime.wHour = static_cast<unsigned short>(lHour);
-    sysTime.wMinute = static_cast<unsigned short>(lMinute);
+    sysTime.wHour = static_cast<uint16_t>(lHour);
+    sysTime.wMinute = static_cast<uint16_t>(lMinute);
     sysTime.wSecond = static_cast<WORD>(lSecond);
-    sysTime.wMilliseconds = static_cast<unsigned short>(lMilliseconds);
+    sysTime.wMilliseconds = static_cast<uint16_t>(lMilliseconds);
 
     SendMessage(hwg_par_HWND(1), DTM_SETSYSTEMTIME, GDT_VALID, reinterpret_cast<LPARAM>(&sysTime));
   }
