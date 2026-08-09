@@ -47,7 +47,7 @@ HB_ULONG hwg_gdk_color(GdkColor *pColor)
 
 void hwg_setcolor(cairo_t *cr, long int nColor)
 {
-  short int r, g, b;
+  int16_t r, g, b;
 
   nColor %= (65536 * 256);
   r = nColor % 256;
@@ -60,7 +60,7 @@ void hwg_setcolor(cairo_t *cr, long int nColor)
 
 GdkPixbuf *alpha2pixbuf(GdkPixbuf *hPixIn, long int nColor)
 {
-  short int r, g, b;
+  int16_t r, g, b;
 
   r = nColor % 256;
   g = ((nColor - r) % 65536) / 256;
@@ -540,7 +540,7 @@ HB_FUNC(HWG_SAVEBITMAP)
   */
 HB_FUNC(HWG_OPENIMAGE)
 {
-  short int iString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
+  int16_t iString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
   GdkPixbuf *handle;
 
   if (iString) {
@@ -826,7 +826,7 @@ HB_FUNC(HWG_GETWINDOWRECT)
 
 void hwg_prepare_cairo_colors(long int nColor, gdouble *r, gdouble *g, gdouble *b)
 {
-  short int int_r, int_g, int_b;
+  int16_t int_r, int_g, int_b;
 
   nColor %= (65536 * 256);
   int_r = nColor % 256;

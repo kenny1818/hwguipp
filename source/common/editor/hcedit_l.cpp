@@ -304,7 +304,7 @@ int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int *iRe
   return xpos;
 }
 
-int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, short int bWrap)
+int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
 {
   TEDATTR *pattr = pted->pattr;
   int i, lasti, iReqLen, iRealLen;
@@ -882,7 +882,7 @@ HB_FUNC(HCED_LINEOUT)
   TEDFONT *font;
   char *szText = (char *)hb_parc(5);
   int iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
-  short int bCalc = (HB_ISNIL(9)) ? 1 : hb_parl(9);
+  int16_t bCalc = (HB_ISNIL(9)) ? 1 : hb_parl(9);
   auto x1 = hb_parni(2);
   auto ypos = hb_parni(3);
   // int x1 = hb_parni(2) + pted->xBorder, ypos = hb_parni(3) + pted->yBorder;

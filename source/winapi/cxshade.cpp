@@ -69,7 +69,7 @@ struct CXSHADE_STRU
   CXDIB m_dOver;
   CXDIB m_dh;
   CXDIB m_dv;
-  short m_FocusRectMargin; // dotted margin offset
+  int16_t m_FocusRectMargin; // dotted margin offset
   BOOL m_Border;           // 0=flat; 1=3D;
   BOOL m_flat;
 };
@@ -79,7 +79,7 @@ using PCXSHADE = CXSHADE_STRU *;
 
 PCXSHADE cxshade_New(RECT *prect, BOOL lFlat);
 void cxshade_Release(PCXSHADE pshade);
-void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state);
+void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, int16_t state);
 void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granularity, BYTE highlight, BYTE coloring,
                       COLORREF color, RECT *prect);
 void cxshade_SetFlat(PCXSHADE pshade, BOOL bFlag);
@@ -314,7 +314,7 @@ void cxshade_Release(PCXSHADE pshade)
   free(pshade);
 }
 
-void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, short state)
+void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, int16_t state)
 {
   int cx = pshade->m_rect.right - pshade->m_rect.left;
   int cy = pshade->m_rect.bottom - pshade->m_rect.top;

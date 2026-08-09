@@ -182,7 +182,7 @@ HB_FUNC(HWG_CLOSEPRINTER)
 
 void long2rgb(long int nColor, double *pr, double *pg, double *pb)
 {
-  short int r, g, b;
+  int16_t r, g, b;
 
   nColor %= (65536 * 256);
   r = nColor % 256;

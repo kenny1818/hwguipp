@@ -107,7 +107,7 @@ typedef struct
   double dKoeff;
   int iWidth;
   int iDocWidth;
-  short int bWrap;
+  int16_t bWrap;
   COLORREF fg;
   COLORREF bg;
   COLORREF fg_curr;
@@ -147,7 +147,7 @@ int hced_utf8bytes( char * szText, int iLen )
 }
 */
 
-TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int iNum, short int bPrn)
+TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int iNum, int16_t bPrn)
 {
   TEDFONT *pFont;
   HANDLE hold;
@@ -185,11 +185,11 @@ TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int iNum, short int bPrn)
  */
 
 #ifdef UNICODE
-int ted_CalcItemWidth(TEDIT *pted, LPCTSTR szText, TEDATTR *pattr, int *iRealLen, int iWidth, short int bWrap,
-                      short int bLastInFew)
+int ted_CalcItemWidth(TEDIT *pted, LPCTSTR szText, TEDATTR *pattr, int *iRealLen, int iWidth, int16_t bWrap,
+                      int16_t bLastInFew)
 #else
-int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int *iRealLen, int iWidth, short int bWrap,
-                      short int bLastInFew)
+int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int *iRealLen, int iWidth, int16_t bWrap,
+                      int16_t bLastInFew)
 #endif
 {
   int i, i1, iReal, xpos;
@@ -260,9 +260,9 @@ int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int *iRealLen, 
 }
 
 #ifdef UNICODE
-int ted_CalcLineWidth(TEDIT *pted, LPCTSTR szText, int iLen, int iWidth, int *iRealWidth, short int bWrap)
+int ted_CalcLineWidth(TEDIT *pted, LPCTSTR szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
 #else
-int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, short int bWrap)
+int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
 #endif
 {
   TEDATTR *pattr = pted->pattr;
@@ -276,7 +276,7 @@ int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRea
       iRealLen = i - lasti;
       // hwg_writelog( nullptr, "Lineout-1a %d %d %d \r\n", iRealLen, i, lasti );
       *iRealWidth += ted_CalcItemWidth(pted, szText + lasti, pattr + lasti, &iRealLen, iWidth - *iRealWidth, bWrap,
-                                       (short int)lasti);
+                                       (int16_t)lasti);
       iPrinted += iRealLen;
       if (iRealLen < i - lasti) {
         break;
@@ -381,7 +381,7 @@ void ted_ClearAttr(TEDIT *pted)
 
 TEDIT *ted_init(void)
 {
-  static short int bRegistered = FALSE;
+  static int16_t bRegistered = FALSE;
 
   if (!bRegistered) {
     WNDCLASS wndclass;
@@ -470,7 +470,7 @@ HB_FUNC(HCED_SETFONT)
   if (iFont > 0) {
     iFont--;
   }
-  ted_setfont((TEDIT *)hb_parptr(1), (HFONT)hb_parptr(2), iFont, (short int)((HB_ISNIL(4)) ? 0 : hb_parl(4)));
+  ted_setfont((TEDIT *)hb_parptr(1), (HFONT)hb_parptr(2), iFont, (int16_t)((HB_ISNIL(4)) ? 0 : hb_parl(4)));
 }
 
 HB_FUNC(HCED_SETCOLOR)
@@ -576,7 +576,7 @@ HB_FUNC(HCED_SETPAINT)
     pted->iWidth = hb_parni(4);
   }
   if (!HB_ISNIL(5)) {
-    pted->bWrap = (short int)hb_parl(5);
+    pted->bWrap = (int16_t)hb_parl(5);
   }
   if (!HB_ISNIL(7)) {
     pted->iDocWidth = hb_parni(7);
@@ -695,7 +695,7 @@ HB_FUNC(HCED_EXACTCARETPOS)
   auto x1 = hb_parni(3);
   auto xpos = hb_parni(4);
   auto y1 = hb_parni(5);
-  short int bSet = (short int)((HB_ISNIL(6)) ? 1 : hb_parl(6));
+  int16_t bSet = (int16_t)((HB_ISNIL(6)) ? 1 : hb_parl(6));
   int iShiftL = (HB_ISNIL(7) ? 0 : hb_parni(7));
   int iPrinted = 0, iRealWidth;
   SIZE sz;
@@ -784,7 +784,7 @@ HB_FUNC(HCED_LINEOUT)
   char *szText = (char *)hb_parc(5);
 #endif
   int iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
-  short int bCalc = (short int)((HB_ISNIL(9)) ? 1 : hb_parl(9));
+  int16_t bCalc = (int16_t)((HB_ISNIL(9)) ? 1 : hb_parl(9));
   auto x1 = hb_parni(2);
   auto ypos = hb_parni(3);
   auto x2 = hb_parni(4);
