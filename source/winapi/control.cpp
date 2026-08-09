@@ -608,7 +608,7 @@ HB_FUNC(HWG_GETDLGMESSAGE)
 
 HB_FUNC(HWG_GETUTCTIMEDATE) // Format: W,YYYYMMDD-HH:MM:SS
 {
-  SYSTEMTIME st = {0};
+  SYSTEMTIME st{};
   TCHAR cst[41] = {0};
   GetSystemTime(&st);
   sprintf((char *)cst, "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour,
@@ -618,7 +618,7 @@ HB_FUNC(HWG_GETUTCTIMEDATE) // Format: W,YYYYMMDD-HH:MM:SS
 
 HB_FUNC(HWG_GETDATEANSI) // Format: YYYYMMDD, based on local time
 {
-  SYSTEMTIME lt = {0};
+  SYSTEMTIME lt{};
   TCHAR cst[41] = {0};
   GetLocalTime(&lt);
   sprintf((char *)cst, "%04d%02d%02d", lt.wYear, lt.wMonth, lt.wDay);
