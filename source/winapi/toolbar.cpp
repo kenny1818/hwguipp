@@ -32,23 +32,27 @@
 #endif
 
 #if (defined(__MINGW32__) || defined(__MINGW64__)) && !defined(LPNMTBGETINFOTIP)
-typedef struct tagNMTBGETINFOTIPA
+struct tagNMTBGETINFOTIPA
 {
   NMHDR hdr;
   LPSTR pszText;
   int32_t cchTextMax;
   int32_t iItem;
   LPARAM lParam;
-} NMTBGETINFOTIPA, *LPNMTBGETINFOTIPA;
+};
+using NMTBGETINFOTIPA = tagNMTBGETINFOTIPA;
+using LPNMTBGETINFOTIPA = NMTBGETINFOTIPA *;
 
-typedef struct tagNMTBGETINFOTIPW
+struct tagNMTBGETINFOTIPW
 {
   NMHDR hdr;
   LPWSTR pszText;
   int32_t cchTextMax;
   int32_t iItem;
   LPARAM lParam;
-} NMTBGETINFOTIPW, *LPNMTBGETINFOTIPW;
+};
+using NMTBGETINFOTIPW = tagNMTBGETINFOTIPW;
+using LPNMTBGETINFOTIPW = NMTBGETINFOTIPW *;
 
 #ifdef UNICODE
 #define LPNMTBGETINFOTIP LPNMTBGETINFOTIPW

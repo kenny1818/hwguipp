@@ -30,12 +30,14 @@
 
 // static HWND hListSort=nullptr;
 
-typedef struct tagSortInfo
+struct tagSortInfo
 {
   HWND pListControl;
   int32_t nColumnNo;
   BOOL nAscendingSortOrder;
-} SortInfo, *PSORTINFO;
+};
+using SortInfo = tagSortInfo;
+using PSORTINFO = SortInfo *;
 
 LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pColor);
 

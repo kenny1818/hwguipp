@@ -65,31 +65,31 @@
 /* Avoid warnings from GCC */
 #include "warnings.hpp"
 
-typedef struct
+struct TEDATTR
 {
   long fg;   // foreground colour
   long bg;   // background colour
   int32_t iFont; // possible font-styling information
 
-} TEDATTR;
+};
 
-typedef struct
+struct TEDFONT
 {
   // Font information
   PHWGUI_FONT hwg_font;
   int32_t iWidth, iHeight, ixAdd, iSpace;
 
-} TEDFONT;
+};
 
-typedef struct
+struct TEDBLOCK
 {
   int32_t x1;
   int32_t x2;
   int32_t y1;
   int32_t y2;
-} TEDBLOCK;
+};
 
-typedef struct
+struct TEDIT
 {
   GtkWidget *widget;
   GtkWidget *area;
@@ -119,8 +119,7 @@ typedef struct
   int32_t iCaretHeight;
   int32_t nBorder;
   long lBorderClr;
-
-} TEDIT;
+};
 
 #define NUMBER_OF_FONTS 32
 #define TEDATTR_MAX 1024

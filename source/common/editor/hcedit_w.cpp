@@ -66,15 +66,15 @@
 
 LRESULT CALLBACK WinCtrlProc(HWND, UINT, WPARAM, LPARAM);
 
-typedef struct
+struct TEDATTR
 {
   COLORREF fg; // foreground colour
   COLORREF bg; // background colour
   int32_t iFont;   // possible font-styling information
 
-} TEDATTR;
+};
 
-typedef struct
+struct TEDFONT
 {
   // Windows font information
   HFONT hFont;
@@ -82,17 +82,17 @@ typedef struct
 
   int32_t iWidth;
 
-} TEDFONT;
+};
 
-typedef struct
+struct TEDBLOCK
 {
   int32_t x1;
   int32_t x2;
   int32_t y1;
   int32_t y2;
-} TEDBLOCK;
+};
 
-typedef struct
+struct TEDIT
 {
   HWND handle;
   TEDFONT *pFontsScr;
@@ -120,7 +120,7 @@ typedef struct
   int32_t iCaretHeight;
   int32_t nBorder;
   COLORREF lBorderClr;
-} TEDIT;
+};
 
 #define NUMBER_OF_FONTS 32
 #define TEDATTR_MAX 1024

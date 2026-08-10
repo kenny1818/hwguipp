@@ -51,11 +51,13 @@ GtkWidget *hMainWindow = nullptr;
 
 HB_LONG prevp2 = -1;
 
-typedef struct
+struct HW_SIGNAL
 {
   char *cName;
   int32_t msg;
-} HW_SIGNAL, *PHW_SIGNAL;
+};
+
+using PHW_SIGNAL = HW_SIGNAL *;
 
 #define NUMBER_OF_SIGNALS 1
 static HW_SIGNAL aSignals[NUMBER_OF_SIGNALS] = {{"destroy", 2}};

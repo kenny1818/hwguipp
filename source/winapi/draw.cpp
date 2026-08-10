@@ -48,11 +48,12 @@ extern "C"
 #define GRADIENT_FILL_RECT_V 1
 
 #if !defined(__MINGW32__) && !defined(__MINGW64__)
-typedef struct _GRADIENT_RECT
+struct _GRADIENT_RECT
 {
   ULONG UpperLeft;
   ULONG LowerRight;
-} GRADIENT_RECT;
+};
+using GRADIENT_RECT = _GRADIENT_RECT;
 #endif
 
 #endif

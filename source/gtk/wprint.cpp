@@ -56,14 +56,17 @@ HB_FUNC(HWG_SETAPPLOCALE)
 #include "hwgtk.hpp"
 #endif
 
-typedef struct HWGUI_PRINT_STRU
+struct HWGUI_PRINT_STRU
 {
   GtkPageSetup *page_setup;
   char *cName;
   GtkPrintDuplex duplex;
   GtkWidget *label;
   int32_t count;
-} HWGUI_PRINT, *PHWGUI_PRINT;
+};
+
+using HWGUI_PRINT = HWGUI_PRINT_STRU;
+using PHWGUI_PRINT = HWGUI_PRINT *;
 
 PHWGUI_PRINT hwg_openprinter(int32_t iFormType)
 {
