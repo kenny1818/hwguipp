@@ -199,7 +199,7 @@ HB_FUNC(HWG_SELECTFILE)
   const char *cDir = (hb_pcount() > 2 && HB_ISCHAR(3)) ? hb_parc(3) : "";
   const char *cTitle = (hb_pcount() > 3 && HB_ISCHAR(4)) ? hb_parc(4) : "Select a file";
   char *filename;
-  int iLen, iLenTip;
+  int32_t iLen, iLenTip;
 
   selector_archivo =
       gtk_file_chooser_dialog_new(cTitle, static_cast<GtkWindow *>(GetActiveWindow()), GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -208,7 +208,7 @@ HB_FUNC(HWG_SELECTFILE)
   if (pArrMsk) {
     iLen = hb_arrayLen(pArrMsk);
     iLenTip = (pArrTip) ? hb_arrayLen(pArrTip) : 0;
-    for (int i = 1; i <= iLen; i++) {
+    for (int32_t i = 1; i <= iLen; i++) {
       GtkFileFilter *filtro = gtk_file_filter_new();
       gtk_file_filter_add_pattern(filtro, hb_arrayGetC(pArrMsk, i));
       if (iLenTip >= i) {
@@ -341,9 +341,9 @@ HB_FUNC(HWG_SELECTFILEEX)
   const char *cTitle = (HB_ISCHAR(1)) ? hb_parc(1) : "Select a file";
   const char *cDir = (hb_pcount() > 1 && HB_ISCHAR(2)) ? hb_parc(2) : "";
   PHB_ITEM pArray = ((hb_pcount() > 2 && HB_ISARRAY(3)) ? hb_param(3, Harbour::Item::ARRAY) : nullptr), pArr1;
-  int bMulti = (HB_ISLOG(4)) ? hb_parl(4) : 0;
+  int32_t bMulti = (HB_ISLOG(4)) ? hb_parl(4) : 0;
   char *filename;
-  int iLen, iLen1;
+  int32_t iLen, iLen1;
 
   // ----------------------------------
   // Creacion del selector de archivos.
@@ -359,11 +359,11 @@ HB_FUNC(HWG_SELECTFILEEX)
 
   if (pArray) {
     iLen = hb_arrayLen(pArray);
-    for (int i = 1; i <= iLen; i++) {
+    for (int32_t i = 1; i <= iLen; i++) {
       GtkFileFilter *filtro = gtk_file_filter_new();
       pArr1 = hb_arrayGetItemPtr(pArray, i);
       iLen1 = hb_arrayLen(pArr1);
-      for (int j = 1; j <= iLen1; j++) {
+      for (int32_t j = 1; j <= iLen1; j++) {
         if (j == 1) {
           gtk_file_filter_set_name(filtro, hb_arrayGetC(pArr1, j));
         } else {

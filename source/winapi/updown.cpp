@@ -50,7 +50,7 @@ HB_FUNC(HWG_SETRANGEUPDOWN)
 
 HB_FUNC(HWG_GETNOTIFYDELTAPOS)
 {
-  int iItem = hb_parnl(2);
+  int32_t iItem = hb_parnl(2);
   if (iItem < 2) {
     hb_retni(static_cast<LONG>((static_cast<NMUPDOWN *>(hb_parptr(1)))->iPos));
   } else {

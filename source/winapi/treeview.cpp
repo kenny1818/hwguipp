@@ -253,7 +253,7 @@ HB_FUNC(HWG_TREEHITTEST)
     auto oNode = reinterpret_cast<PHB_ITEM>(TreeItem.lParam);
     hb_itemReturn(oNode);
     if (hb_pcount() > 3) {
-      hb_storni(static_cast<int>(ht.flags), 4);
+      hb_storni(static_cast<int32_t>(ht.flags), 4);
     }
   } else {
     hb_ret();

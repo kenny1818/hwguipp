@@ -221,7 +221,7 @@ HB_FUNC(HWG_SETMONTHCALENDARDATE) // adaptation of hwg_Setdatepicker of file Con
    if (pDate)
    {
       SYSTEMTIME sysTime;
-      int lYear, lMonth, lDay;
+      int32_t lYear, lMonth, lDay;
 
       hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
 

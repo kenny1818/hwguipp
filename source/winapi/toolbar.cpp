@@ -36,8 +36,8 @@ typedef struct tagNMTBGETINFOTIPA
 {
   NMHDR hdr;
   LPSTR pszText;
-  int cchTextMax;
-  int iItem;
+  int32_t cchTextMax;
+  int32_t iItem;
   LPARAM lParam;
 } NMTBGETINFOTIPA, *LPNMTBGETINFOTIPA;
 
@@ -45,8 +45,8 @@ typedef struct tagNMTBGETINFOTIPW
 {
   NMHDR hdr;
   LPWSTR pszText;
-  int cchTextMax;
-  int iItem;
+  int32_t cchTextMax;
+  int32_t iItem;
   LPARAM lParam;
 } NMTBGETINFOTIPW, *LPNMTBGETINFOTIPW;
 
@@ -100,7 +100,7 @@ HB_FUNC(HWG_TOOLBARADDBUTTONS)
     if (hb_arrayGetNI(pTemp, 4) == TBSTYLE_SEP) {
       tb[ulCount].iBitmap = 8;
     } else {
-      tb[ulCount].iBitmap = ulID - 1; // ulID > 0 ? static_cast<int>(ulCount) : -1;
+      tb[ulCount].iBitmap = ulID - 1; // ulID > 0 ? static_cast<int32_t>(ulCount) : -1;
     }
     tb[ulCount].idCommand = hb_arrayGetNI(pTemp, 2);
     tb[ulCount].fsState = static_cast<BYTE>(hb_arrayGetNI(pTemp, 3));
@@ -154,7 +154,7 @@ HB_FUNC(HWG_TOOLBAR_LOADSTANDARTIMAGE)
 
   SendMessage(hWndCtrl, TB_ADDBITMAP, 0, reinterpret_cast<LPARAM>(&tbab));
   auto himl = reinterpret_cast<HIMAGELIST>(SendMessage(hWndCtrl, TB_GETIMAGELIST, 0, 0));
-  hb_retni(static_cast<int>(ImageList_GetImageCount(himl)));
+  hb_retni(static_cast<int32_t>(ImageList_GetImageCount(himl)));
 }
 
 HB_FUNC(HWG_IMAGELIST_GETIMAGECOUNT)

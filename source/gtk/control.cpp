@@ -613,7 +613,7 @@ HB_FUNC(HWG_CREATEBROWSE)
 HB_FUNC(HWG_GETADJVALUE)
 {
   auto adj = static_cast<GtkAdjustment *>(hb_parptr(1));
-  int iOption = (HB_ISNIL(2)) ? 0 : hb_parni(2);
+  int32_t iOption = (HB_ISNIL(2)) ? 0 : hb_parni(2);
 
   if (iOption == 0) {
     hb_retnl(static_cast<HB_LONG>(gtk_adjustment_get_value(adj)));
@@ -1243,7 +1243,7 @@ HB_FUNC(HWG_SETMONTHCALENDARDATE)
   if (pDate) {
     auto hCtrl = static_cast<GtkWidget *>(hb_parptr(1));
 #ifndef HARBOUR_OLD_VERSION
-    int lYear, lMonth, lDay;
+    int32_t lYear, lMonth, lDay;
 #else
     long lYear, lMonth, lDay;
 #endif
@@ -1262,7 +1262,7 @@ HB_FUNC(HWG_GETMONTHCALENDARDATE)
   auto hCtrl = static_cast<GtkWidget *>(hb_parptr(1));
   char szDate[9];
 #ifndef HARBOUR_OLD_VERSION
-  int lYear, lMonth, lDay;
+  int32_t lYear, lMonth, lDay;
 #else
   long lYear, lMonth, lDay;
 #endif
@@ -1441,7 +1441,7 @@ HB_FUNC(HWG_SETWIDGETNAME)
 HB_FUNC(HWG_SHOWCURSOR)
 {
   HB_BOOL modus;
-  int rvalue;
+  int32_t rvalue;
 
   GdkCursor *cursor;
   GdkWindow *win;

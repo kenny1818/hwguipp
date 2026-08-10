@@ -93,7 +93,7 @@ HB_FUNC(HWG_REGGETVALUE)
   DWORD lpType = 0;
   LPBYTE lpData;
   DWORD lpcbData;
-  int length;
+  int32_t length;
 
   if (RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS) {
     length = (int)lpcbData;

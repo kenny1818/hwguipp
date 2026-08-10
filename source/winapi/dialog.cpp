@@ -116,7 +116,7 @@ HB_FUNC(HWG_GETDLGITEMTEXT)
 HB_FUNC(HWG_GETEDITTEXT)
 {
   auto hDlg = hwg_par_HWND(1);
-  int id = hwg_par_int(2);
+  int32_t id = hwg_par_int(2);
   auto uiLen = static_cast<USHORT>(SendMessage(GetDlgItem(hDlg, id), WM_GETTEXTLENGTH, 0, 0));
   auto lpText = static_cast<LPTSTR>(hb_xgrab((uiLen + 2) * sizeof(TCHAR)));
   GetDlgItemText(hDlg, id, lpText, uiLen + 1);
@@ -174,18 +174,18 @@ static HB_SIZE s_nCopyAnsiToWideChar(LPWORD lpWCStr, PHB_ITEM pItem, HB_SIZE siz
   return hb_itemCopyStrU16(pItem, HB_CDP_ENDIAN_NATIVE, reinterpret_cast<HB_WCHAR *>(lpWCStr), size) + 1;
 }
 
-static int s_nWideStringLen(PHB_ITEM pItem)
+static int32_t s_nWideStringLen(PHB_ITEM pItem)
 {
   return hb_itemCopyStrU16(pItem, HB_CDP_ENDIAN_NATIVE, nullptr, 0) + 1;
 }
 
-static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int x1, int y1, int dwidth, int dheight, ULONG ulStyle)
+static LPDLGTEMPLATE s_CreateDlgTemplate(PHB_ITEM pObj, int32_t x1, int32_t y1, int32_t dwidth, int32_t dheight, ULONG ulStyle)
 {
   HGLOBAL hgbl;
   PWORD pend;
   PHB_ITEM pControl, temp;
   LONG baseUnit = GetDialogBaseUnits();
-  int baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
+  int32_t baseunitX = LOWORD(baseUnit), baseunitY = HIWORD(baseUnit);
   long lTemplateSize = 15;
   LONG lExtStyle;
   ULONG ulControls;
@@ -369,7 +369,7 @@ HB_FUNC(HWG__PROPERTYSHEET)
 {
   auto pArr = hb_param(2, Harbour::Item::ARRAY);
   auto nPages = hb_parni(3);
-  int i;
+  int32_t i;
   HPROPSHEETPAGE psp[10];
   PROPSHEETHEADER psh;
   void *hCaption;
@@ -513,7 +513,7 @@ static LRESULT CALLBACK s_DlgProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
     }
     aDialogs[iDialogs++] = hDlg;
   } else if (uMsg == WM_DESTROY) {
-    int i;
+    int32_t i;
     for (i = 0; i < iDialogs; i++) {
       if (aDialogs[i] == hDlg) {
         break;
@@ -577,7 +577,7 @@ static LRESULT CALLBACK s_PSPProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lP
   } else if (uMsg == WM_NOTIFY) {
     uMsg = WM_PSPNOTIFY;
   } else if (uMsg == WM_DESTROY) {
-    int i;
+    int32_t i;
     for (i = 0; i < iDialogs; i++) {
       if (aDialogs[i] == hDlg) {
         break;

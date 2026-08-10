@@ -885,10 +885,10 @@ HB_FUNC_STATIC(HWINDOW_CENTER)
 
    GetWindowRect(window, &rect);
 
-   int w = rect.right - rect.left;
-   int h = rect.bottom - rect.top;
-   int x = GetSystemMetrics(SM_CXSCREEN);
-   int y = GetSystemMetrics(SM_CYSCREEN);
+   int32_t w = rect.right - rect.left;
+   int32_t h = rect.bottom - rect.top;
+   int32_t x = GetSystemMetrics(SM_CXSCREEN);
+   int32_t y = GetSystemMetrics(SM_CYSCREEN);
 
    SetWindowPos(window, HWND_TOP, (x - w) / 2, (y - h) / 2, 0, 0, SWP_NOSIZE + SWP_NOACTIVATE + SWP_FRAMECHANGED + SWP_NOSENDCHANGING);
 }

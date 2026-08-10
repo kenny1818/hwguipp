@@ -81,7 +81,7 @@ HB_FUNC(HWG_GETLOCALEINFON)
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
   /* returns Windows LCID, type is int.
       Windows only , on other OSs available, returns forever -1. */
-  int lio;
+  int32_t lio;
   lio = GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SLIST, nullptr, 0);
   hb_retni(lio);
 #else
@@ -94,7 +94,7 @@ HB_FUNC(HWG_GETUTCTIMEDATE)
   /* Format: W,YYYYMMDD-HH:MM:SS */
   char cst[128] = {0};
   char *puf = malloc(25);
-  for (int i = 0; i < 128; i++) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
+  for (int32_t i = 0; i < 128; i++) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)
@@ -128,7 +128,7 @@ HB_FUNC(HWG_GETDATEANSI)
   /* Format: YYYYMMDD, based on local time */
   char cst[128] = {0};
   char *puf = malloc(25);
-  for (int i = 0; i < 128; i++) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
+  for (int32_t i = 0; i < 128; i++) { /* Fill string with zeroes to avoid buffer overflow on LINUX */
     cst[i] = '\0';
   }
 #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__) || defined(__MINGW64__)

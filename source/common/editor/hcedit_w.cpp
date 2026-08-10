@@ -70,7 +70,7 @@ typedef struct
 {
   COLORREF fg; // foreground colour
   COLORREF bg; // background colour
-  int iFont;   // possible font-styling information
+  int32_t iFont;   // possible font-styling information
 
 } TEDATTR;
 
@@ -80,16 +80,16 @@ typedef struct
   HFONT hFont;
   TEXTMETRIC tm;
 
-  int iWidth;
+  int32_t iWidth;
 
 } TEDFONT;
 
 typedef struct
 {
-  int x1;
-  int x2;
-  int y1;
-  int y2;
+  int32_t x1;
+  int32_t x2;
+  int32_t y1;
+  int32_t y2;
 } TEDBLOCK;
 
 typedef struct
@@ -97,28 +97,28 @@ typedef struct
   HWND handle;
   TEDFONT *pFontsScr;
   TEDFONT *pFontsPrn;
-  int iFonts;
-  int iFontsCurr;
+  int32_t iFonts;
+  int32_t iFontsCurr;
   TEDATTR *pattr;
-  int iAttrLen;
-  int *pattrf;
+  int32_t iAttrLen;
+  int32_t *pattrf;
   HDC hDCScr;
   HDC hDCPrn;
   double dKoeff;
-  int iWidth;
-  int iDocWidth;
+  int32_t iWidth;
+  int32_t iDocWidth;
   int16_t bWrap;
   COLORREF fg;
   COLORREF bg;
   COLORREF fg_curr;
   COLORREF bg_curr;
-  int x1;
-  int x2;
-  int ypos;
-  int ixCaretPos;
-  int iyCaretPos;
-  int iCaretHeight;
-  int nBorder;
+  int32_t x1;
+  int32_t x2;
+  int32_t ypos;
+  int32_t ixCaretPos;
+  int32_t iyCaretPos;
+  int32_t iCaretHeight;
+  int32_t nBorder;
   COLORREF lBorderClr;
 } TEDIT;
 
@@ -129,10 +129,10 @@ typedef struct
 const char *szDelimiters = " .,-";
 
 /*
-int hced_utf8bytes( char * szText, int iLen )
+int hced_utf8bytes( char * szText, int32_t iLen )
 {
   HB_SIZE nLen, ul;
-  int n;
+  int32_t n;
   HB_WCHAR wc;
 
   for( ul = 0; ul < nLen && iLen; ) {
@@ -147,7 +147,7 @@ int hced_utf8bytes( char * szText, int iLen )
 }
 */
 
-TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int iNum, int16_t bPrn)
+TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int32_t iNum, int16_t bPrn)
 {
   TEDFONT *pFont;
   HANDLE hold;
@@ -185,14 +185,14 @@ TEDFONT *ted_setfont(TEDIT *pted, HFONT hFont, int iNum, int16_t bPrn)
  */
 
 #ifdef UNICODE
-int ted_CalcItemWidth(TEDIT *pted, LPCTSTR szText, TEDATTR *pattr, int *iRealLen, int iWidth, int16_t bWrap,
+int ted_CalcItemWidth(TEDIT *pted, LPCTSTR szText, TEDATTR *pattr, int32_t *iRealLen, int32_t iWidth, int16_t bWrap,
                       int16_t bLastInFew)
 #else
-int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int *iRealLen, int iWidth, int16_t bWrap,
+int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int32_t *iRealLen, int32_t iWidth, int16_t bWrap,
                       int16_t bLastInFew)
 #endif
 {
-  int i, i1, iReal, xpos;
+  int32_t i, i1, iReal, xpos;
   SIZE sz;
   TEDFONT *font = pted->pFontsScr + pattr->iFont;
 
@@ -260,13 +260,13 @@ int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int *iRealLen, 
 }
 
 #ifdef UNICODE
-int ted_CalcLineWidth(TEDIT *pted, LPCTSTR szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
+int ted_CalcLineWidth(TEDIT *pted, LPCTSTR szText, int32_t iLen, int32_t iWidth, int32_t *iRealWidth, int16_t bWrap)
 #else
-int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
+int ted_CalcLineWidth(TEDIT *pted, char *szText, int32_t iLen, int32_t iWidth, int32_t *iRealWidth, int16_t bWrap)
 #endif
 {
   TEDATTR *pattr = pted->pattr;
-  int i, lasti, iRealLen;
+  int32_t i, lasti, iRealLen;
   auto iPrinted = 0;
 
   *iRealWidth = 0;
@@ -289,9 +289,9 @@ int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRea
 }
 
 #ifdef UNICODE
-int ted_TextOut(TEDIT *pted, int xpos, int ypos, int iHeight, int iMaxAscent, LPCTSTR szText, TEDATTR *pattr, int iLen)
+int ted_TextOut(TEDIT *pted, int32_t xpos, int32_t ypos, int32_t iHeight, int32_t iMaxAscent, LPCTSTR szText, TEDATTR *pattr, int32_t iLen)
 #else
-int ted_TextOut(TEDIT *pted, int xpos, int ypos, int iHeight, int iMaxAscent, char *szText, TEDATTR *pattr, int iLen)
+int ted_TextOut(TEDIT *pted, int32_t xpos, int32_t ypos, int32_t iHeight, int32_t iMaxAscent, char *szText, TEDATTR *pattr, int32_t iLen)
 #endif
 {
   RECT rect;
@@ -328,13 +328,13 @@ int ted_TextOut(TEDIT *pted, int xpos, int ypos, int iHeight, int iMaxAscent, ch
 }
 
 #ifdef UNICODE
-int ted_LineOut(TEDIT *pted, int x1, int ypos, LPCTSTR szText, int iPrinted, int iHeight, int iMaxAscent, int iRight)
+int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, LPCTSTR szText, int32_t iPrinted, int32_t iHeight, int32_t iMaxAscent, int32_t iRight)
 #else
-int ted_LineOut(TEDIT *pted, int x1, int ypos, char *szText, int iPrinted, int iHeight, int iMaxAscent, int iRight)
+int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPrinted, int32_t iHeight, int32_t iMaxAscent, int32_t iRight)
 #endif
 {
   TEDATTR *pattr = pted->pattr;
-  int i, lasti, iRealLen;
+  int32_t i, lasti, iRealLen;
 
   if (pted->hDCPrn) {
     x1 = (int)(x1 * pted->dKoeff);
@@ -417,7 +417,7 @@ TEDIT *ted_init(void)
   return pted;
 }
 
-HWND ted_create(HWND hwndParent, int id, DWORD dwStyle, int x, int y, int iWidth, int iHeight)
+HWND ted_create(HWND hwndParent, int32_t id, DWORD dwStyle, int32_t x, int32_t y, int32_t iWidth, int32_t iHeight)
 {
   return CreateWindowEx((dwStyle & WS_BORDER) ? WS_EX_CLIENTEDGE : 0, TEXT("TEDIT"), TEXT(""), dwStyle, x, y, iWidth,
                         iHeight, hwndParent, (HMENU)(UINT_PTR)id, GetModuleHandle(0), 0);
@@ -502,8 +502,8 @@ HB_FUNC(HCED_SETATTR)
   TEDIT *pted = (TEDIT *)hb_parptr(1);
   auto iPos = hb_parni(2);
   auto i = hb_parni(3);
-  int iLen;
-  int iFont = hb_parni(4) - 1;
+  int32_t iLen;
+  int32_t iFont = hb_parni(4) - 1;
   COLORREF fg = (COLORREF)hb_parnl(5);
   COLORREF bg = (COLORREF)hb_parnl(6);
   TEDATTR *pattr;
@@ -690,14 +690,14 @@ HB_FUNC(HCED_EXACTCARETPOS)
   LPCTSTR szText = HB_PARSTR(2, &hText, &iLen);
 #else
   char *szText = (char *)hb_parc(2);
-  int iLen = hb_parclen(2);
+  int32_t iLen = hb_parclen(2);
 #endif
   auto x1 = hb_parni(3);
   auto xpos = hb_parni(4);
   auto y1 = hb_parni(5);
   int16_t bSet = (int16_t)((HB_ISNIL(6)) ? 1 : hb_parl(6));
-  int iShiftL = (HB_ISNIL(7) ? 0 : hb_parni(7));
-  int iPrinted = 0, iRealWidth;
+  int32_t iShiftL = (HB_ISNIL(7) ? 0 : hb_parni(7));
+  int32_t iPrinted = 0, iRealWidth;
   SIZE sz;
 
   if (iLen > 0) {
@@ -729,7 +729,7 @@ HB_FUNC(HCED_EXACTCARETPOS)
 #endif
   iPrinted++;
   if (bSet) {
-    int iCaretHeight = (pted->pFontsScr + (pattr + iPrinted - 1)->iFont)->tm.tmHeight;
+    int32_t iCaretHeight = (pted->pFontsScr + (pattr + iPrinted - 1)->iFont)->tm.tmHeight;
     if (iCaretHeight != pted->iCaretHeight) {
       HideCaret(pted->handle);
       DestroyCaret();
@@ -783,16 +783,16 @@ HB_FUNC(HCED_LINEOUT)
 #else
   char *szText = (char *)hb_parc(5);
 #endif
-  int iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
+  int32_t iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
   int16_t bCalc = (int16_t)((HB_ISNIL(9)) ? 1 : hb_parl(9));
   auto x1 = hb_parni(2);
   auto ypos = hb_parni(3);
   auto x2 = hb_parni(4);
   auto iLen = hb_parni(6);
-  int iPrinted;
+  int32_t iPrinted;
   auto iCalculated = 0;
   auto iAlign = hb_parni(7);
-  int iRealWidth, iFont;
+  int32_t iRealWidth, iFont;
   auto iHeight = 0;
   auto iMaxAscent = 0;
 
@@ -878,7 +878,7 @@ HB_FUNC(HCED_DRAWBORDER)
 HB_FUNC(HCED_COLOR2X)
 {
   char s[8];
-  int i;
+  int32_t i;
   long int n = hb_parnl(1);
 
   sprintf(s, "#%2X%2X%2X", (unsigned int)(n % 256), (unsigned int)((n / 256) % 256), (unsigned int)((n / 65536) % 256));
@@ -892,7 +892,7 @@ HB_FUNC(HCED_COLOR2X)
 
 HB_FUNC(HCED_X2COLOR)
 {
-  int i1, i2, i3;
+  int32_t i1, i2, i3;
 
   sscanf(hb_parc(1), "#%2X%2X%2X", &i1, &i2, &i3);
   hb_retnl(i3 * 65536 + i2 * 256 + i1);

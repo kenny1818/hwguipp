@@ -329,13 +329,13 @@ HB_FUNC(HWG_PRINTRTF)
   auto hdc = hwg_par_HDC(2);
   FORMATRANGE fr;
   BOOL fSuccess = TRUE;
-  int cxPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETX);
-  int cyPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETY);
-  int cxPhys = GetDeviceCaps(hdc, PHYSICALWIDTH);
-  int cyPhys = GetDeviceCaps(hdc, PHYSICALHEIGHT);
-  int ppi_x = GetDeviceCaps(hdc, LOGPIXELSX);
-  int ppi_y = GetDeviceCaps(hdc, LOGPIXELSX);
-  int cpMin;
+  int32_t cxPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETX);
+  int32_t cyPhysOffset = GetDeviceCaps(hdc, PHYSICALOFFSETY);
+  int32_t cxPhys = GetDeviceCaps(hdc, PHYSICALWIDTH);
+  int32_t cyPhys = GetDeviceCaps(hdc, PHYSICALHEIGHT);
+  int32_t ppi_x = GetDeviceCaps(hdc, LOGPIXELSX);
+  int32_t ppi_y = GetDeviceCaps(hdc, LOGPIXELSX);
+  int32_t cpMin;
 
   SendMessage(hwnd, EM_SETTARGETDEVICE, reinterpret_cast<WPARAM>(hdc), cxPhys / 2);
   fr.hdc = hdc;

@@ -33,7 +33,7 @@
 typedef struct tagSortInfo
 {
   HWND pListControl;
-  int nColumnNo;
+  int32_t nColumnNo;
   BOOL nAscendingSortOrder;
 } SortInfo, *PSORTINFO;
 
@@ -41,7 +41,7 @@ LRESULT ProcessCustomDraw(LPARAM lParam, PHB_ITEM pColor);
 
 HB_FUNC(HWG_LISTVIEW_CREATE)
 {
-  int style = LVS_SHOWSELALWAYS | hb_parni(7);
+  int32_t style = LVS_SHOWSELALWAYS | hb_parni(7);
 
   if (hb_parl(8)) {
     style = style | LVS_NOCOLUMNHEADER;
@@ -133,8 +133,8 @@ HB_FUNC(HWG_LISTVIEW_GETDISPINFO)
 {
   auto pDispInfo = static_cast<LV_DISPINFO *>(hb_parptr(1));
 
-  int iItem = pDispInfo->item.iItem;
-  int iSubItem = pDispInfo->item.iSubItem;
+  int32_t iItem = pDispInfo->item.iItem;
+  int32_t iSubItem = pDispInfo->item.iSubItem;
 
   hb_reta(2);
   hb_storvni(iItem + 1, -1, 1);
@@ -250,7 +250,7 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
   void *hText;
   auto iImage = hb_parni(6);
   LVCOLUMN lvcolumn{};
-  int iResult;
+  int32_t iResult;
 
   if (iImage > 0) {
     lvcolumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_SUBITEM | LVCF_IMAGE | LVCF_WIDTH;
@@ -264,7 +264,7 @@ HB_FUNC(HWG_LISTVIEW_ADDCOLUMNEX)
   lvcolumn.fmt = hb_parni(5);
   lvcolumn.iImage = iImage > 0 ? lCol : -1;
 
-  if (SendMessage(static_cast<HWND>(hwndListView), LVM_INSERTCOLUMN, static_cast<WPARAM>(static_cast<int>(lCol)),
+  if (SendMessage(static_cast<HWND>(hwndListView), LVM_INSERTCOLUMN, static_cast<WPARAM>(static_cast<int32_t>(lCol)),
                   reinterpret_cast<LPARAM>(&lvcolumn)) == -1) {
     iResult = 0;
   } else {
@@ -283,7 +283,7 @@ HB_FUNC(HWG_LISTVIEW_INSERTITEMEX)
   auto hwndListView = hwg_par_HWND(1);
   LONG lLin = hb_parnl(2) - 1;
   LONG lCol = hb_parnl(3) - 1;
-  int iSubItemYesNo = lCol == 0 ? 0 : 1;
+  int32_t iSubItemYesNo = lCol == 0 ? 0 : 1;
   void *hText;
   auto iBitMap = hb_parni(5);
   LVITEM lvi{};
@@ -342,7 +342,7 @@ HB_FUNC(HWG_LISTVIEWSELECTALL)
 HB_FUNC(HWG_LISTVIEWSELECTLASTITEM)
 {
   auto hList = hwg_par_HWND(1);
-  int items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
+  int32_t items = SendMessage(hList, LVM_GETITEMCOUNT, 0, 0);
   items--;
   ListView_SetItemState(hList, -1, 0, LVIS_SELECTED);
   SendMessage(hList, LVM_ENSUREVISIBLE, items, FALSE);
@@ -410,13 +410,13 @@ HB_FUNC(HWG_LISTVIEWGETITEM)
 int CALLBACK CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 {
   auto pSortInfo = reinterpret_cast<PSORTINFO>(lParamSort);
-  // int nResult      = 0;
-  int nColumnNo = pSortInfo->nColumnNo;
+  // int32_t nResult      = 0;
+  int32_t nColumnNo = pSortInfo->nColumnNo;
   HWND pListControl = pSortInfo->pListControl;
   BOOL nAscendingSortOrder = pSortInfo->nAscendingSortOrder;
   TCHAR szA[256] = {0};
   TCHAR szB[256] = {0};
-  int rc;
+  int32_t rc;
 
   ListView_GetItemText(pListControl, lParam1, nColumnNo, szA, HB_SIZEOFARRAY(szA));
   ListView_GetItemText(pListControl, lParam2, nColumnNo, szB, HB_SIZEOFARRAY(szB));

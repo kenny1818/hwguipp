@@ -62,10 +62,10 @@ typedef struct HWGUI_PRINT_STRU
   char *cName;
   GtkPrintDuplex duplex;
   GtkWidget *label;
-  int count;
+  int32_t count;
 } HWGUI_PRINT, *PHWGUI_PRINT;
 
-PHWGUI_PRINT hwg_openprinter(int iFormType)
+PHWGUI_PRINT hwg_openprinter(int32_t iFormType)
 {
   auto print = static_cast<PHWGUI_PRINT>(hb_xgrab(sizeof(HWGUI_PRINT)));
   GtkPaperSize *pSize = gtk_paper_size_new((iFormType == 8) ? GTK_PAPER_NAME_A3 : GTK_PAPER_NAME_A4);
@@ -200,7 +200,7 @@ static void draw_page(cairo_t *cr, const char *cpage)
   char *ptr, *ptre;
   char cBuf[512];
   double x1, y1, x2, y2;
-  int iOpt, i1, i2;
+  int32_t iOpt, i1, i2;
   long int li;
   GdkPixbuf *pixbuf;
   cairo_text_extents_t exten;
@@ -406,7 +406,7 @@ static void print_destroy(GtkWidget *widget)
   gtk_widget_destroy(widget->parent->parent);
 }
 
-static int print_time(GtkWidget *widget)
+static int32_t print_time(GtkWidget *widget)
 {
   auto print = static_cast<PHWGUI_PRINT>(g_object_get_data(static_cast<GObject *>(widget), "print"));
   char buf[48];
@@ -519,10 +519,10 @@ static void print_init(GtkPrintOperation *operation, PHWGUI_PRINT print)
 HB_FUNC(HWG_GP_PRINT)
 {
   auto print = reinterpret_cast<PHWGUI_PRINT>(hb_parnl(1));
-  int i;
+  int32_t i;
   auto iPages = hb_parni(3);
   auto iOper = hb_parni(4);
-  int iPage = HB_ISNIL(6) ? 0 : hb_parni(6);
+  int32_t iPage = HB_ISNIL(6) ? 0 : hb_parni(6);
 
   if (print->cName) {
     hb_xfree(print->cName);
@@ -530,7 +530,7 @@ HB_FUNC(HWG_GP_PRINT)
   print->cName = nullptr;
 
   if (HB_ISCHAR(5)) {
-    int iLen = hb_parclen(5);
+    int32_t iLen = hb_parclen(5);
     print->cName = static_cast<char *>(hb_xgrab(iLen + 1));
     memcpy(print->cName, hb_parc(5), iLen);
     print->cName[iLen] = '\0';
@@ -594,7 +594,7 @@ HB_FUNC(HWG_GP_PRINT)
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
   } else if (iOper == 3) {
-    int iLen = hb_parclen(5);
+    int32_t iLen = hb_parclen(5);
     char sfile[256];
 
     if (iPage > 0) {

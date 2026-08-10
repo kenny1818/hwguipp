@@ -69,7 +69,7 @@ typedef struct
 {
   long fg;   // foreground colour
   long bg;   // background colour
-  int iFont; // possible font-styling information
+  int32_t iFont; // possible font-styling information
 
 } TEDATTR;
 
@@ -77,16 +77,16 @@ typedef struct
 {
   // Font information
   PHWGUI_FONT hwg_font;
-  int iWidth, iHeight, ixAdd, iSpace;
+  int32_t iWidth, iHeight, ixAdd, iSpace;
 
 } TEDFONT;
 
 typedef struct
 {
-  int x1;
-  int x2;
-  int y1;
-  int y2;
+  int32_t x1;
+  int32_t x2;
+  int32_t y1;
+  int32_t y2;
 } TEDBLOCK;
 
 typedef struct
@@ -95,29 +95,29 @@ typedef struct
   GtkWidget *area;
   TEDFONT *pFontsScr;
   TEDFONT *pFontsPrn;
-  int iFonts;
-  int iFontsCurr;
+  int32_t iFonts;
+  int32_t iFontsCurr;
   TEDATTR *pattr;
-  int iAttrLen;
-  int *pattrf;
+  int32_t iAttrLen;
+  int32_t *pattrf;
   PHWGUI_HDC hDCScr;
   PHWGUI_HDC hDCPrn;
   double dKoeff;
-  int iWidth;
-  int iInterline;
-  int iDocWidth;
+  int32_t iWidth;
+  int32_t iInterline;
+  int32_t iDocWidth;
   HB_BOOL bWrap;
   long fg;
   long bg;
   long fg_curr;
   long bg_curr;
-  int x1;
-  int x2;
-  int ypos;
-  int ixCaretPos;
-  int iyCaretPos;
-  int iCaretHeight;
-  int nBorder;
+  int32_t x1;
+  int32_t x2;
+  int32_t ypos;
+  int32_t ixCaretPos;
+  int32_t iyCaretPos;
+  int32_t iCaretHeight;
+  int32_t nBorder;
   long lBorderClr;
 
 } TEDIT;
@@ -143,7 +143,7 @@ extern void cb_signal(GtkWidget *widget, gchar *data);
 extern void all_signal_connect(gpointer hWnd);
 extern gint cb_signal_size(GtkWidget *widget, GtkAllocation *allocation, gpointer data);
 extern GtkFixed *getFixedBox(GObject *handle);
-extern void hwg_gtk_drawedge(PHWGUI_HDC hDC, int left, int top, int right, int bottom, unsigned int iType);
+extern void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, unsigned int iType);
 
 gchar *szDelimiters = " .,-";
 
@@ -168,7 +168,7 @@ void wrlog(const char *sFile, const char *sTraceMsg, ...)
   }
 }
 
-int hced_utf8bytes(char *szText, int iLen)
+int hced_utf8bytes(char *szText, int32_t iLen)
 {
   char *ptr = szText;
 
@@ -179,7 +179,7 @@ int hced_utf8bytes(char *szText, int iLen)
   return (ptr - szText);
 }
 
-TEDFONT *ted_setfont(TEDIT *pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPrn)
+TEDFONT *ted_setfont(TEDIT *pted, PHWGUI_FONT hwg_font, int32_t iNum, HB_BOOL bPrn)
 {
   TEDFONT *pFont;
 
@@ -206,10 +206,10 @@ TEDFONT *ted_setfont(TEDIT *pted, PHWGUI_FONT hwg_font, int iNum, HB_BOOL bPrn)
  * writes to the 4 parameter (iRealLen) the width in chars
  */
 
-int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int *iRealLen, int iWidth, HB_BOOL bWrap,
+int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int32_t *iRealLen, int32_t iWidth, HB_BOOL bWrap,
                       HB_BOOL bLastInFew)
 {
-  int i, i1, iReal, xpos, iTextWidth, iDLen = strlen(szDelimiters);
+  int32_t i, i1, iReal, xpos, iTextWidth, iDLen = strlen(szDelimiters);
   PangoRectangle rc;
   gchar *ptr;
 
@@ -304,10 +304,10 @@ int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int *iRe
   return xpos;
 }
 
-int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRealWidth, int16_t bWrap)
+int ted_CalcLineWidth(TEDIT *pted, char *szText, int32_t iLen, int32_t iWidth, int32_t *iRealWidth, int16_t bWrap)
 {
   TEDATTR *pattr = pted->pattr;
-  int i, lasti, iReqLen, iRealLen;
+  int32_t i, lasti, iReqLen, iRealLen;
   auto iPrinted = 0;
   char *ptr;
 
@@ -335,13 +335,13 @@ int ted_CalcLineWidth(TEDIT *pted, char *szText, int iLen, int iWidth, int *iRea
   return iPrinted;
 }
 
-int ted_TextOut(TEDIT *pted, int xpos, int ypos, int iHeight, int iMaxAscent, char *szText, TEDATTR *pattr, int iLen)
+int ted_TextOut(TEDIT *pted, int32_t xpos, int32_t ypos, int32_t iHeight, int32_t iMaxAscent, char *szText, TEDATTR *pattr, int32_t iLen)
 {
   PangoRectangle rc;
   long fg, bg;
   PHWGUI_HDC hDC = (pted->hDCPrn) ? pted->hDCPrn : pted->hDCScr;
   TEDFONT *font = (pted->hDCPrn ? pted->pFontsPrn : pted->pFontsScr) + pattr->iFont;
-  int iWidth;
+  int32_t iWidth;
 
   hDC->hFont = font->hwg_font->hFont;
   pango_layout_set_font_description(hDC->layout, hDC->hFont);
@@ -384,10 +384,10 @@ int ted_TextOut(TEDIT *pted, int xpos, int ypos, int iHeight, int iMaxAscent, ch
   return iWidth;
 }
 
-int ted_LineOut(TEDIT *pted, int x1, int ypos, char *szText, int iPrinted, int iHeight, int iRight)
+int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPrinted, int32_t iHeight, int32_t iRight)
 {
   TEDATTR *pattr = pted->pattr;
-  int i, lasti, iReqLen, iRealLen;
+  int32_t i, lasti, iReqLen, iRealLen;
   auto iMaxAscent = 0;
   char *ptr;
 
@@ -633,8 +633,8 @@ HB_FUNC(HCED_SETATTR)
   TEDIT *pted = (TEDIT *)hb_parptr(1);
   auto iPos = hb_parni(2);
   auto i = hb_parni(3);
-  int iLen;
-  int iFont = hb_parni(4) - 1;
+  int32_t iLen;
+  int32_t iFont = hb_parni(4) - 1;
   long fg = (long)hb_parnl(5);
   long bg = (long)hb_parnl(6);
   TEDATTR *pattr = pted->pattr + iPos - 1;
@@ -715,9 +715,9 @@ HB_FUNC(HCED_SETWIDTH)
 HB_FUNC(HCED_FILLRECT)
 {
   TEDIT *pted = (TEDIT *)hb_parptr(1);
-  int x1 = (HB_ISNIL(2)) ? 0 : hb_parni(2); // + pted->xBorder;
+  int32_t x1 = (HB_ISNIL(2)) ? 0 : hb_parni(2); // + pted->xBorder;
   auto y1 = hb_parni(3);
-  int x2 = (HB_ISNIL(4)) ? pted->iWidth : hb_parni(4);
+  int32_t x2 = (HB_ISNIL(4)) ? pted->iWidth : hb_parni(4);
 
   if (!pted->hDCPrn) {
 
@@ -782,8 +782,8 @@ HB_FUNC(HCED_EXACTCARETPOS)
   auto xpos = hb_parni(4);
   auto y1 = hb_parni(5);
   HB_BOOL bSet = (HB_ISNIL(6)) ? 1 : hb_parl(6);
-  int i, j, lasti, iReqLen, iRealLen, iPrinted = 0, iTextWidth;
-  int iLen = g_utf8_strlen(szText, hb_parclen(2));
+  int32_t i, j, lasti, iReqLen, iRealLen, iPrinted = 0, iTextWidth;
+  int32_t iLen = g_utf8_strlen(szText, hb_parclen(2));
   TEDATTR *pattr = pted->pattr;
   cairo_t *cr;
   PangoLayout *layout;
@@ -849,7 +849,7 @@ HB_FUNC(HCED_INVALIDATERECT)
 {
   TEDIT *pted = (TEDIT *)hb_parptr(1);
   GtkWidget *widget = pted->area;
-  int x1, y1, x2, y2;
+  int32_t x1, y1, x2, y2;
 
   if (hb_pcount() > 2) {
     x1 = hb_parni(3);
@@ -881,17 +881,17 @@ HB_FUNC(HCED_LINEOUT)
   TEDIT *pted = (TEDIT *)hb_parptr(1);
   TEDFONT *font;
   char *szText = (char *)hb_parc(5);
-  int iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
+  int32_t iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
   int16_t bCalc = (HB_ISNIL(9)) ? 1 : hb_parl(9);
   auto x1 = hb_parni(2);
   auto ypos = hb_parni(3);
-  // int x1 = hb_parni(2) + pted->xBorder, ypos = hb_parni(3) + pted->yBorder;
+  // int32_t x1 = hb_parni(2) + pted->xBorder, ypos = hb_parni(3) + pted->yBorder;
   auto x2 = hb_parni(4);
   auto iLen = hb_parni(6);
-  int iPrinted;
+  int32_t iPrinted;
   auto iCalculated = 0;
   auto iAlign = hb_parni(7);
-  int iRealWidth, iFont;
+  int32_t iRealWidth, iFont;
   auto iHeight = 0;
 
   pango_layout_set_alignment(pted->hDCScr->layout, PANGO_ALIGN_LEFT);
@@ -979,7 +979,7 @@ HB_FUNC(HCED_DRAWBORDER)
 HB_FUNC(HCED_COLOR2X)
 {
   char s[8];
-  int i;
+  int32_t i;
   long int n = hb_parnl(1);
 
   sprintf(s, "#%2X%2X%2X", (unsigned int)(n % 256), (unsigned int)((n / 256) % 256), (unsigned int)((n / 65536) % 256));
@@ -993,7 +993,7 @@ HB_FUNC(HCED_COLOR2X)
 
 HB_FUNC(HCED_X2COLOR)
 {
-  int i1, i2, i3;
+  int32_t i1, i2, i3;
 
   sscanf(hb_parc(1), "#%2X%2X%2X", &i1, &i2, &i3);
   hb_retnl(i3 * 65536 + i2 * 256 + i1);

@@ -64,8 +64,8 @@ HB_FUNC(HWG_DRAWTEXT)
   LPCTSTR lpText = HB_PARSTR(2, &hText, &nLen);
   RECT rc;
   UINT uFormat = (hb_pcount() == 4 ? hb_parni(4) : hb_parni(7));
-  // int uiPos = (hb_pcount() == 4 ? 3 : hb_parni(8));
-  int heigh;
+  // int32_t uiPos = (hb_pcount() == 4 ? 3 : hb_parni(8));
+  int32_t heigh;
 
   if (hb_pcount() > 4) {
     rc.left = hb_parni(3);
@@ -341,7 +341,7 @@ HB_FUNC(HWG_WINDOWFROMDC)
 HB_FUNC(HWG_CREATEFONT)
 {
   HFONT hFont;
-  int fnWeight = (HB_ISNIL(4)) ? 0 : hb_parni(4);
+  int32_t fnWeight = (HB_ISNIL(4)) ? 0 : hb_parni(4);
   DWORD fdwCharSet = (HB_ISNIL(5)) ? 0 : hb_parni(5);
   DWORD fdwItalic = (HB_ISNIL(6)) ? 0 : hb_parni(6);
   DWORD fdwUnderline = (HB_ISNIL(7)) ? 0 : hb_parni(7);

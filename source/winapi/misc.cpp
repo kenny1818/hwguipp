@@ -288,7 +288,7 @@ HB_FUNC(HWG_GETKEYSTATE)
 HB_FUNC(HWG_GETKEYNAMETEXT)
 {
   TCHAR cText[MAX_PATH];
-  int iRet = GetKeyNameText(hb_parnl(1), cText, MAX_PATH);
+  int32_t iRet = GetKeyNameText(hb_parnl(1), cText, MAX_PATH);
 
   if (iRet) {
     HB_RETSTRLEN(cText, iRet);
@@ -445,9 +445,9 @@ HB_FUNC(HWG_SLEEP)
 HB_FUNC(HWG_KEYB_EVENT)
 {
   DWORD dwFlags = (!(HB_ISNIL(2)) && hb_parl(2)) ? KEYEVENTF_EXTENDEDKEY : 0;
-  int bShift = (!(HB_ISNIL(3)) && hb_parl(3)) ? TRUE : FALSE;
-  int bCtrl = (!(HB_ISNIL(4)) && hb_parl(4)) ? TRUE : FALSE;
-  int bAlt = (!(HB_ISNIL(5)) && hb_parl(5)) ? TRUE : FALSE;
+  int32_t bShift = (!(HB_ISNIL(3)) && hb_parl(3)) ? TRUE : FALSE;
+  int32_t bCtrl = (!(HB_ISNIL(4)) && hb_parl(4)) ? TRUE : FALSE;
+  int32_t bAlt = (!(HB_ISNIL(5)) && hb_parl(5)) ? TRUE : FALSE;
 
   if (bShift) {
     keybd_event(VK_SHIFT, 0, 0, 0);
@@ -506,7 +506,7 @@ HB_FUNC(HWG_SETSCROLLINFO)
 
 HB_FUNC(HWG_GETSCROLLRANGE)
 {
-  int MinPos, MaxPos;
+  int32_t MinPos, MaxPos;
 
   GetScrollRange(hwg_par_HWND(1), // handle of window with scroll bar
                  hb_parni(2),     // scroll bar flags
@@ -1062,12 +1062,12 @@ HB_FUNC(HWG_STOD)
   hb_retds(hb_itemGetCLen(pDateString) >= 7 ? hb_itemGetCPtr(pDateString) : nullptr);
 }
 
-int hwg_hexbin(int cha)
+int hwg_hexbin(int32_t cha)
 // converts single hex char to int, returns -1, if not in range
 // returns 0 - 15 (dec), only a half byte
 {
   char gross;
-  int o;
+  int32_t o;
 
   gross = toupper(cha);
   switch (gross) {
@@ -1130,14 +1130,14 @@ HB_FUNC(HWG_BIN2DC)
 {
 
   double pbyNumber;
-  int i;
+  int32_t i;
   unsigned char o;
   unsigned char bu[8];     // Buffer with binary contents of double value
   unsigned char szHex[17]; // The hex string from parameter 1 + null byte
 
-  int p;
-  int c;  // char with int value hex from hex
-  int od; // odd even sign / gerade - ungerade
+  int32_t p;
+  int32_t c;  // char with int value hex from hex
+  int32_t od; // odd even sign / gerade - ungerade
 
   // For Borland C the variables must declare extra
 

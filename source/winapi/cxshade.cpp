@@ -87,10 +87,10 @@ COLORREF cxshade_SetTextColor(PCXSHADE pshade, COLORREF new_color);
 
 void Draw3dRect(HDC hDC, RECT *lprect, COLORREF clrTopLeft, COLORREF clrBottomRight)
 {
-  int x = lprect->left;
-  int y = lprect->top;
-  int cx = lprect->right - lprect->left;
-  int cy = lprect->bottom - lprect->top;
+  int32_t x = lprect->left;
+  int32_t y = lprect->top;
+  int32_t cx = lprect->right - lprect->left;
+  int32_t cy = lprect->bottom - lprect->top;
 
   SetBkColor(hDC, clrTopLeft);
 
@@ -316,8 +316,8 @@ void cxshade_Release(PCXSHADE pshade)
 
 void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, int16_t state)
 {
-  int cx = pshade->m_rect.right - pshade->m_rect.left;
-  int cy = pshade->m_rect.bottom - pshade->m_rect.top;
+  int32_t cx = pshade->m_rect.right - pshade->m_rect.left;
+  int32_t cy = pshade->m_rect.bottom - pshade->m_rect.top;
 
   RECT r;
   SetRect(&r, pshade->m_rect.left, pshade->m_rect.top, pshade->m_rect.right, pshade->m_rect.bottom);
@@ -413,7 +413,7 @@ void cxshade_SetShade(PCXSHADE pshade, UINT shadeID, BYTE palette, BYTE granular
   long r, g, b;
   long a, x, y, d, xs, idxmax, idxmin;
   long aa, bb;
-  int grainx2;
+  int32_t grainx2;
 
   if (prect) {
     SetRect(&(pshade->m_rect), prect->left, prect->top, prect->right, prect->bottom);

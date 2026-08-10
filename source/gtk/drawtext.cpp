@@ -60,8 +60,8 @@ HB_FUNC(HWG_DRAWTEXT)
   auto hDC = static_cast<PHWGUI_HDC>(hb_parptr(1));
   char *cText;
   PangoRectangle rc;
-  int iWidth = hb_parni(5) - hb_parni(3);
-  int bElli = (HB_ISLOG(8) && hb_parl(8)) ? 1 : 0;
+  int32_t iWidth = hb_parni(5) - hb_parni(3);
+  int32_t bElli = (HB_ISLOG(8) && hb_parl(8)) ? 1 : 0;
 
   if (hb_parclen(2) > 0) {
     cText = hwg_convert_to_utf8(hb_parc(2));
@@ -101,7 +101,7 @@ HB_FUNC(HWG_GETTEXTMETRIC)
   {
     PHB_ITEM aMetr = _itemArrayNew(3);
     PHB_ITEM temp;
-    int height, width;
+    int32_t height, width;
 
     context = pango_layout_get_context(hDC->layout);
     metrics = pango_context_get_metrics(context, hDC->hFont, nullptr);
@@ -166,7 +166,7 @@ HB_FUNC(HWG_GETFONTSLIST)
   PangoLayout *layout;
   PangoContext *context;
   PangoFontFamily **families;
-  int n_families;
+  int32_t n_families;
 
   cr = gdk_cairo_create(gtk_widget_get_window(widget));
   layout = pango_cairo_create_layout(cr);
@@ -226,7 +226,7 @@ HB_FUNC( HWG_WRITESTATUSWINDOW )
 {
    char * cText = hwg_convert_to_utf8(hb_parcx(3));
    auto w = static_cast<GtkWidget*>(hb_parptr(1));
-   int iStatus = hb_parni(2) - 1;
+   int32_t iStatus = hb_parni(2) - 1;
 
    hb_retni(gtk_statusbar_push(GTK_STATUSBAR(w), iStatus, cText));
    g_free(cText);
@@ -246,8 +246,8 @@ HB_FUNC(HWG_CREATEFONT)
 {
   PangoFontDescription *hFont;
   auto h = static_cast<PHWGUI_FONT>(hb_xgrab(sizeof(HWGUI_FONT)));
-  int iUnder = (!HB_ISNIL(7) && hb_parni(7) > 0) ? 1 : 0;
-  int iStrike = (!HB_ISNIL(8) && hb_parni(8) > 0) ? 1 : 0;
+  int32_t iUnder = (!HB_ISNIL(7) && hb_parni(7) > 0) ? 1 : 0;
+  int32_t iStrike = (!HB_ISNIL(8) && hb_parni(8) > 0) ? 1 : 0;
 
   hFont = pango_font_description_new();
   pango_font_description_set_family(hFont, hb_parc(1));
@@ -306,8 +306,8 @@ HB_FUNC(HWG_SETCTRLFONT)
   if (pName && strncmp(pName, "Gtk", 3) != 0) {
     char *szFamily = pango_font_description_get_family(pFont->hFont);
     gint iHeight = pango_font_description_get_size(pFont->hFont);
-    int iIta = (pango_font_description_get_style(pFont->hFont) == PANGO_STYLE_ITALIC) ? 1 : 0;
-    int iBold = (pango_font_description_get_weight(pFont->hFont) == PANGO_WEIGHT_BOLD) ? 1 : 0;
+    int32_t iIta = (pango_font_description_get_style(pFont->hFont) == PANGO_STYLE_ITALIC) ? 1 : 0;
+    int32_t iBold = (pango_font_description_get_weight(pFont->hFont) == PANGO_WEIGHT_BOLD) ? 1 : 0;
 
     sprintf(szData, "#%s { font-family: %s; font-size: %dpx; font-weight: %s;  font-style: %s; }", pName, szFamily,
             iHeight / PANGO_SCALE, (iBold) ? "bold" : "normal", (iIta) ? "italic" : "normal");

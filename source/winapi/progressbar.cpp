@@ -27,8 +27,8 @@ HB_FUNC(HWG_CREATEPROGRESSBAR)
   auto hParentWindow = hwg_par_HWND(1);
   RECT rcClient;
   ULONG ulStyle;
-  int cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
-  int x1, y1, nwidth, nheight;
+  int32_t cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
+  int32_t x1, y1, nwidth, nheight;
 
   if (hb_pcount() > 2) {
     ulStyle = hb_parnl(3);

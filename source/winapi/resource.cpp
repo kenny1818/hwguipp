@@ -26,7 +26,7 @@ HB_FUNC(HWG_GETRESOURCES)
 HB_FUNC(HWG_LOADSTRING)
 {
   TCHAR buffer[2048];
-  int iBuffRet = LoadString(static_cast<HINSTANCE>(hModule), static_cast<UINT>(hb_parnl(2)), buffer, 2048);
+  int32_t iBuffRet = LoadString(static_cast<HINSTANCE>(hModule), static_cast<UINT>(hb_parnl(2)), buffer, 2048);
   HB_RETSTRLEN(buffer, iBuffRet);
 }
 

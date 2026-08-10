@@ -19,10 +19,10 @@
 
 extern GtkWidget *GetActiveWindow(void);
 
-static int MessageBox(const char *cMsg, const char *cTitle, int message_type, int button_type)
+static int32_t MessageBox(const char *cMsg, const char *cTitle, int32_t message_type, int32_t button_type)
 {
   GtkWidget *dialog;
-  int result;
+  int32_t result;
   gchar *gcptr;
 
   gcptr = hwg_convert_to_utf8(cMsg);
@@ -81,7 +81,7 @@ HB_FUNC(HWG_MSGYESNOCANCEL)
 {
   const char *cTitle = (hb_pcount() == 1) ? "" : hb_parc(2);
   GtkWidget *dialog;
-  int result;
+  int32_t result;
   gchar *gcptr;
 
   gcptr = hwg_convert_to_utf8(hb_parc(1));

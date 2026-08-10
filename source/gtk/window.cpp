@@ -54,7 +54,7 @@ HB_LONG prevp2 = -1;
 typedef struct
 {
   char *cName;
-  int msg;
+  int32_t msg;
 } HW_SIGNAL, *PHW_SIGNAL;
 
 #define NUMBER_OF_SIGNALS 1
@@ -107,10 +107,10 @@ HB_FUNC(HWG_INITMAINWINDOW)
   GtkStyle *style;
   auto pObject = hb_param(1, Harbour::Item::OBJECT);
   gchar *gcTitle = hwg_convert_to_utf8(hb_parcx(3));
-  int x = hb_parnl(7);
-  int y = hb_parnl(8);
-  int width = hb_parnl(9);
-  int height = hb_parnl(10);
+  int32_t x = hb_parnl(7);
+  int32_t y = hb_parnl(8);
+  int32_t width = hb_parnl(9);
+  int32_t height = hb_parnl(10);
   /* Icon */
   PHWGUI_PIXBUF szFile = HB_ISPOINTER(5) ? static_cast<PHWGUI_PIXBUF>(hb_parptr(5)) : nullptr;
   /* Background image */
@@ -562,7 +562,7 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
       /*
       char utf8string[10];
       gunichar uchar;
-      int ll;
+      int32_t ll;
       uchar = gdk_keyval_to_unicode((static_cast<GdkEventKey*>(event))->keyval);
       ll = g_unichar_to_utf8(uchar, utf8string);
       utf8string[ll] = '\0';
@@ -957,7 +957,7 @@ gchar *hwg_convert_from_utf8(const char *szText)
 HB_FUNC(HWG_SETAPPLOCALE)
 {
   auto szLocale = hb_parc(1);
-  int iLen = hb_parclen(1);
+  int32_t iLen = hb_parclen(1);
   hb_retc(szAppLocale);
   memcpy(szAppLocale, szLocale, iLen);
   szAppLocale[iLen] = '\0';
@@ -966,7 +966,7 @@ HB_FUNC(HWG_SETAPPLOCALE)
 HB_FUNC(HWG_KEYTOUTF8)
 {
   char utf8string[10];
-  int iLen;
+  int32_t iLen;
   iLen = g_unichar_to_utf8(gdk_keyval_to_unicode(hb_parnl(1)), utf8string);
   utf8string[iLen] = '\0';
   hb_retc(utf8string);

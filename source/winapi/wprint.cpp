@@ -68,7 +68,7 @@ HB_FUNC(HWG_GETPRINTERS)
     auto aMetr = hb_itemArrayNew(dwReturned);
     PHB_ITEM temp = nullptr;
 
-    for (auto i = 0; i < static_cast<int>(dwReturned); i++) {
+    for (auto i = 0; i < static_cast<int32_t>(dwReturned); i++) {
       if (pinfo4 != nullptr) {
         temp = HB_ITEMPUTSTR(nullptr, pinfo4->pPrinterName);
         pinfo4++;
@@ -241,10 +241,10 @@ HB_FUNC(HWG_CREATEENHMETAFILE)
   void *hFileName;
 
   // Determine the picture frame dimensions.
-  int iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);   // iWidthMM is the display width in millimeters.
-  int iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);  // iHeightMM is the display height in millimeters.
-  int iWidthPels = GetDeviceCaps(hDCref, HORZRES);  // iWidthPels is the display width in pixels.
-  int iHeightPels = GetDeviceCaps(hDCref, VERTRES); // iHeightPels is the display height in pixels.
+  int32_t iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);   // iWidthMM is the display width in millimeters.
+  int32_t iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);  // iHeightMM is the display height in millimeters.
+  int32_t iWidthPels = GetDeviceCaps(hDCref, HORZRES);  // iWidthPels is the display width in pixels.
+  int32_t iHeightPels = GetDeviceCaps(hDCref, VERTRES); // iHeightPels is the display height in pixels.
 
   RECT rc;
   GetClientRect(hWnd, &rc); // Retrieve the coordinates of the client rectangle, in pixels.
@@ -275,8 +275,8 @@ HB_FUNC(HWG_CREATEMETAFILE)
   // iWidthPels is the display width in pixels.
   // iHeightPels is the display height in pixels
 
-  int iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);
-  int iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);
+  int32_t iWidthMM = GetDeviceCaps(hDCref, HORZSIZE);
+  int32_t iHeightMM = GetDeviceCaps(hDCref, VERTSIZE);
 
   // Convert client coordinates to .01-mm units.
   // Use iWidthMM, iWidthPels, iHeightMM, and

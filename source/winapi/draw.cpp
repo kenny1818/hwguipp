@@ -69,8 +69,8 @@ typedef struct _GRADIENT_RECT
 #define M_PI_4 0.78539816339744830962
 #endif
 
-void TransparentBmp(HDC hDC, int x, int y, int nWidthDest, int nHeightDest, HDC dcImage, int bmWidth, int bmHeight,
-                    int trColor)
+void TransparentBmp(HDC hDC, int32_t x, int32_t y, int32_t nWidthDest, int32_t nHeightDest, HDC dcImage, int32_t bmWidth, int32_t bmHeight,
+                    int32_t trColor)
 {
   TransparentBlt(hDC, x, y, nWidthDest, nHeightDest, dcImage, 0, 0, bmWidth, bmHeight, trColor);
 }
@@ -188,14 +188,14 @@ HB_FUNC(HWG_DRAWLINE)
 
 HB_FUNC(HWG_PIE)
 {
-  int res = Pie(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
+  int32_t res = Pie(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), hb_parni(6), hb_parni(7),
                 hb_parni(8), hb_parni(9));
   hb_retnl(res ? 0 : static_cast<LONG>(GetLastError()));
 }
 
 HB_FUNC(HWG_ELLIPSE)
 {
-  int res = Ellipse(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
+  int32_t res = Ellipse(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5));
   hb_retnl(res ? 0 : static_cast<LONG>(GetLastError()));
 }
 
@@ -206,11 +206,11 @@ HB_FUNC(HWG_DRAWGRID)
   auto y1 = hb_parni(3);
   auto x2 = hb_parni(4);
   auto y2 = hb_parni(5);
-  int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
+  int32_t n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
   COLORREF lColor = (HB_ISNIL(7)) ? 0 : hwg_par_COLORREF(7);
 
-  for (int i = x1 + n; i < x2; i += n) {
-    for (int j = y1 + n; j < y2; j += n) {
+  for (int32_t i = x1 + n; i < x2; i += n) {
+    for (int32_t j = y1 + n; j < y2; j += n) {
       SetPixel(hDC, i, j, lColor);
     }
   }
@@ -242,8 +242,8 @@ HB_FUNC(HWG_ARC)
   auto iAngle2 = hb_parni(6);
   iAngle1 = iAngle2 - iAngle1;
   iAngle2 = 360 - iAngle2;
-  int x1 = xc + radius * cos(iAngle2 * M_PI / 180);
-  int y1 = yc - radius * sin(iAngle2 * M_PI / 180);
+  int32_t x1 = xc + radius * cos(iAngle2 * M_PI / 180);
+  int32_t y1 = yc - radius * sin(iAngle2 * M_PI / 180);
   MoveToEx(hDC, x1, y1, nullptr);
   AngleArc(hDC, xc, yc, static_cast<DWORD>(radius), static_cast<FLOAT>(iAngle2), static_cast<FLOAT>(iAngle1));
 }
@@ -252,7 +252,7 @@ HB_FUNC(HWG_ARC)
 HB_FUNC(HWG_ROUNDRECT)
 {
   auto iWidth = hb_parni(6);
-  int iHeight = (HB_ISNIL(7)) ? iWidth : hb_parni(7);
+  int32_t iHeight = (HB_ISNIL(7)) ? iWidth : hb_parni(7);
   hb_parl(RoundRect(hwg_par_HDC(1), hb_parni(2), hb_parni(3), hb_parni(4), hb_parni(5), iWidth * 2, iHeight * 2));
 }
 
@@ -261,10 +261,10 @@ HB_FUNC(HWG_REDRAWWINDOW)
   RECT rc;
 
   if (hb_pcount() > 3) {
-    int x = (hb_pcount() > 3 && !HB_ISNIL(3)) ? hb_parni(3) : 0;
-    int y = (hb_pcount() >= 4 && !HB_ISNIL(4)) ? hb_parni(4) : 0;
-    int w = (hb_pcount() >= 5 && !HB_ISNIL(5)) ? hb_parni(5) : 0;
-    int h = (hb_pcount() >= 6 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
+    int32_t x = (hb_pcount() > 3 && !HB_ISNIL(3)) ? hb_parni(3) : 0;
+    int32_t y = (hb_pcount() >= 4 && !HB_ISNIL(4)) ? hb_parni(4) : 0;
+    int32_t w = (hb_pcount() >= 5 && !HB_ISNIL(5)) ? hb_parni(5) : 0;
+    int32_t h = (hb_pcount() >= 6 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
     rc.left = x - 1;
     rc.top = y - 1;
     rc.right = x + w + 1;
@@ -375,10 +375,10 @@ HB_FUNC(HWG_WINDOW2BITMAP)
   // HDC hDC = ( lFull ) ? GetWindowDC(hWnd) : GetDC(hWnd);
   auto hDC = GetWindowDC(hWnd);
   auto hDCmem = CreateCompatibleDC(hDC);
-  int x1 = HB_ISNUM(2) ? hb_parni(2) : 0;
-  int y1 = HB_ISNUM(3) ? hb_parni(3) : 0;
-  int width = HB_ISNUM(4) ? hb_parni(4) : 0;
-  int height = HB_ISNUM(5) ? hb_parni(5) : 0;
+  int32_t x1 = HB_ISNUM(2) ? hb_parni(2) : 0;
+  int32_t y1 = HB_ISNUM(3) ? hb_parni(3) : 0;
+  int32_t width = HB_ISNUM(4) ? hb_parni(4) : 0;
+  int32_t height = HB_ISNUM(5) ? hb_parni(5) : 0;
   RECT rc;
 
   if (width == 0 || height == 0) {
@@ -413,8 +413,8 @@ HB_FUNC(HWG_DRAWBITMAP)
   DWORD dwraster = (HB_ISNIL(3)) ? SRCCOPY : hwg_par_DWORD(3);
   auto hBitmap = hwg_par_HBITMAP(2);
   BITMAP bitmap;
-  int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
-  int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
+  int32_t nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
+  int32_t nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
 
   SelectObject(hDCmem, hBitmap);
   GetObject(hBitmap, sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
@@ -441,8 +441,8 @@ HB_FUNC(HWG_DRAWTRANSPARENTBITMAP)
   BITMAP bitmap;
   auto x = hb_parni(3);
   auto y = hb_parni(4);
-  int nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
-  int nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
+  int32_t nWidthDest = (hb_pcount() >= 5 && !HB_ISNIL(6)) ? hb_parni(6) : 0;
+  int32_t nHeightDest = (hb_pcount() >= 6 && !HB_ISNIL(7)) ? hb_parni(7) : 0;
 
   // Create two memory dcs for the image and the mask
   auto dcImage = CreateCompatibleDC(hDC);
@@ -496,9 +496,9 @@ HB_FUNC(HWG_SPREADBITMAP)
   auto hBitmap = hwg_par_HBITMAP(2);
   BITMAP bitmap;
   RECT rc;
-  int nLeft;
-  int nWidth;
-  int nHeight;
+  int32_t nLeft;
+  int32_t nWidth;
+  int32_t nHeight;
 
   rc.left = (HB_ISNUM(3)) ? hb_parni(3) : 0;
   rc.top = (HB_ISNUM(4)) ? hb_parni(4) : 0;
@@ -552,7 +552,7 @@ HB_FUNC(HWG_GETBITMAPSIZE)
 {
   BITMAP bitmap;
   auto aMetr = hb_itemArrayNew(4);
-  int nret;
+  int32_t nret;
 
   nret = GetObject(hwg_par_HBITMAP(1), sizeof(BITMAP), static_cast<LPVOID>(&bitmap));
 
@@ -581,7 +581,7 @@ HB_FUNC(HWG_GETICONSIZE)
   ICONINFO iinfo;
   auto aMetr = hb_itemArrayNew(3);
 
-  int nret = GetIconInfo(hwg_par_HICON(1), &iinfo);
+  int32_t nret = GetIconInfo(hwg_par_HICON(1), &iinfo);
 
   auto temp = hb_itemPutNL(nullptr, iinfo.xHotspot * 2);
   hb_itemArrayPut(aMetr, 1, temp);
@@ -712,7 +712,7 @@ HB_FUNC(HWG_SAVEBITMAP)
   void *hString;
 
   auto hDC = CreateDC(TEXT("DISPLAY"), nullptr, nullptr, nullptr);
-  int iBits = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
+  int32_t iBits = GetDeviceCaps(hDC, BITSPIXEL) * GetDeviceCaps(hDC, PLANES);
   DeleteDC(hDC);
 
   if (iBits <= 1) {
@@ -932,8 +932,8 @@ HB_FUNC(HWG_OPENIMAGE)
 {
   auto cFileName = hb_parc(1);
   BOOL bString = (HB_ISNIL(2)) ? 0 : hb_parl(2);
-  int iType = (HB_ISNIL(3)) ? IMAGE_BITMAP : hb_parni(3);
-  int iFileSize;
+  int32_t iType = (HB_ISNIL(3)) ? IMAGE_BITMAP : hb_parni(3);
+  int32_t iFileSize;
   FILE *fp;
   LPPICTURE pPic;
   IStream *pStream;
@@ -1242,7 +1242,7 @@ HB_FUNC(HWG_MODIFYSTYLE)
 
 #define SECTORS_NUM 100
 
-// hwg_drawGradient(hDC, x1, y1, x2, y2, int type, array colors, array stops, array radiuses)
+// hwg_drawGradient(hDC, x1, y1, x2, y2, int32_t type, array colors, array stops, array radiuses)
 // This function draws rectangle with rounded corners and fill it with gradient pattern.
 // hDC - handle of device context;
 // x1 and y1 - coordinates of upper left corner;
@@ -1272,15 +1272,15 @@ HB_FUNC(HWG_DRAWGRADIENT)
   auto y1 = hb_parni(3);
   auto x2 = hb_parni(4);
   auto y2 = hb_parni(5);
-  int type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
+  int32_t type = (HB_ISNUM(6)) ? hb_parni(6) : 1;
   auto pArrColor = hb_param(7, Harbour::Item::ARRAY);
   long int color;
-  int red[GRADIENT_MAX_COLORS], green[GRADIENT_MAX_COLORS], blue[GRADIENT_MAX_COLORS], index;
-  int cur_red, cur_green, cur_blue, section_len;
+  int32_t red[GRADIENT_MAX_COLORS], green[GRADIENT_MAX_COLORS], blue[GRADIENT_MAX_COLORS], index;
+  int32_t cur_red, cur_green, cur_blue, section_len;
   double red_step, green_step, blue_step;
   auto pArrStop = hb_param(8, Harbour::Item::ARRAY);
   double stop;
-  int stop_x[GRADIENT_MAX_COLORS], stop_y[GRADIENT_MAX_COLORS], coord_stop;
+  int32_t stop_x[GRADIENT_MAX_COLORS], stop_y[GRADIENT_MAX_COLORS], coord_stop;
   auto isH = 0;
   auto isV = 0;
   auto isD = 0;
@@ -1290,19 +1290,19 @@ HB_FUNC(HWG_DRAWGRADIENT)
   auto y_center = 0;
   auto gr_radius = 0;
   auto pArrRadius = hb_param(9, Harbour::Item::ARRAY);
-  int radius[4];
+  int32_t radius[4];
   double angle, angle_step, coord_x, coord_y, min_delta, delta;
-  int user_colors_num, colors_num, user_stops_num, user_radiuses_num, j, k;
+  int32_t user_colors_num, colors_num, user_stops_num, user_radiuses_num, j, k;
   HDC hDC_mem = nullptr;
   HBITMAP bmp = nullptr;
   HPEN hPen, hPenOld;
   HBRUSH hBrush;
   TRIVERTEX vertex[(GRADIENT_MAX_COLORS - 1) * 2];
   GRADIENT_RECT gRect[GRADIENT_MAX_COLORS - 1];
-  int fill_type;
+  int32_t fill_type;
   POINT polygon[(SECTORS_NUM + 1) * 4], coords[SECTORS_NUM + 1], candidates[4], center[4], edge[4];
-  int polygon_len = 0, nearest_coord = 0, cycle_start, cycle_stop, cycle_step;
-  int convert[4][2] = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
+  int32_t polygon_len = 0, nearest_coord = 0, cycle_start, cycle_stop, cycle_step;
+  int32_t convert[4][2] = {{-1, 1}, {1, 1}, {1, -1}, {-1, -1}};
   long x, y;
 
   if (!pArrColor || (user_colors_num = hb_arrayLen(pArrColor)) == 0) {
@@ -1388,7 +1388,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
       // (for a rectangle two vertices need to be defined: upper-left and lower-right).
       // 2. Array of GRADIENT_RECT structures that
       // reference the TRIVERTEX vertices.
-      for (int i = 1; i < colors_num; i++) {
+      for (int32_t i = 1; i < colors_num; i++) {
         vertex[(i - 1) * 2].x = isH ? stop_x[i - 1] : x1;
         vertex[(i - 1) * 2].y = isV ? stop_y[i - 1] : y1;
         vertex[(i - 1) * 2].Red = static_cast<COLOR16>(red[i - 1] * 256);
@@ -1455,7 +1455,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
         is_5_6 = 1;
       }
 
-      for (int i = 1; i < colors_num; i++) {
+      for (int32_t i = 1; i < colors_num; i++) {
         section_len = stop_x[i] - stop_x[i - 1];
         red_step = static_cast<double>(red[i] - red[i - 1]) / section_len;
         green_step = static_cast<double>(green[i] - green[i - 1]) / section_len;
@@ -1542,7 +1542,7 @@ HB_FUNC(HWG_DRAWGRADIENT)
         DeleteObject(hBrush);
       }
 
-      for (int i = colors_num - 1; i > 0; i--) {
+      for (int32_t i = colors_num - 1; i > 0; i--) {
         section_len = stop_x[i] - stop_x[i - 1];
         red_step = static_cast<double>(red[i - 1] - red[i]) / section_len;
         green_step = static_cast<double>(green[i - 1] - green[i]) / section_len;

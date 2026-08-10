@@ -131,7 +131,7 @@ HB_FUNC(HWG_INITMAINWINDOW)
 HB_FUNC(HWG_CENTERWINDOW)
 {
   RECT rect, rectcli;
-  int w, h, x, y;
+  int32_t w, h, x, y;
 
   GetWindowRect(hwg_par_HWND(1), &rect);
 
@@ -154,7 +154,7 @@ HB_FUNC(HWG_CENTERWINDOW)
 
 void ProcessMessage(MSG msg, HACCEL hAcceler, BOOL lMdi)
 {
-  int i;
+  int32_t i;
   HWND hwndGoto;
 
   for (i = 0; i < iDialogs; i++) {
@@ -209,7 +209,7 @@ HB_FUNC(HWG_PROCESSMESSAGE)
 {
   MSG msg;
   BOOL lMdi = (HB_ISNIL(1)) ? 0 : hb_parl(1);
-  int nSleep = (HB_ISNIL(2)) ? 1 : hb_parni(2);
+  int32_t nSleep = (HB_ISNIL(2)) ? 1 : hb_parni(2);
 
   if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
     ProcessMessage(msg, 0, lMdi);
@@ -389,7 +389,7 @@ HB_FUNC(HWG_INITMDIWINDOW)
 HB_FUNC(HWG_INITCLIENTWINDOW)
 {
   CLIENTCREATESTRUCT ccs;
-  int nPos = (hb_pcount() > 1 && !HB_ISNIL(2)) ? hb_parni(2) : 0;
+  int32_t nPos = (hb_pcount() > 1 && !HB_ISNIL(2)) ? hb_parni(2) : 0;
 
   // Create client window
   ccs.hWindowMenu = GetSubMenu(GetMenu(MDIFrameWindow), nPos);
@@ -441,9 +441,9 @@ HB_FUNC(HWG_CREATEMDICHILDWINDOW)
   LPCTSTR lpTitle = HB_ITEMGETSTR(GETOBJECTVAR(pObj, "TITLE"), &hTitle, nullptr);
 
   if (!style) {
-    style = WS_VISIBLE | WS_CHILD | WS_OVERLAPPEDWINDOW | static_cast<int>(hb_parnl(2)); // WS_VISIBLE | WS_MAXIMIZE;
+    style = WS_VISIBLE | WS_CHILD | WS_OVERLAPPEDWINDOW | static_cast<int32_t>(hb_parnl(2)); // WS_VISIBLE | WS_MAXIMIZE;
   } else {
-    style = style | static_cast<int>(hb_parnl(2));
+    style = style | static_cast<int32_t>(hb_parnl(2));
   }
 
   if (MDIFrameWindow != nullptr) {
@@ -1110,7 +1110,7 @@ HB_FUNC(HWG_GETBACKBRUSH)
 HB_FUNC(HWG_WINDOWSETRESIZE)
 {
   auto handle = hwg_par_HWND(1);
-  int iResizeable = (HB_ISNIL(2)) ? 0 : hb_parl(2);
+  int32_t iResizeable = (HB_ISNIL(2)) ? 0 : hb_parl(2);
 
   if (iResizeable) {
     SetWindowLongPtr(handle, GWL_STYLE, GetWindowLongPtr(handle, GWL_STYLE) | (WS_SIZEBOX | WS_MAXIMIZEBOX));
@@ -1119,7 +1119,7 @@ HB_FUNC(HWG_WINDOWSETRESIZE)
   }
 }
 
-LRESULT CALLBACK KeybHook(int code, WPARAM wp, LPARAM lp)
+LRESULT CALLBACK KeybHook(int32_t code, WPARAM wp, LPARAM lp)
 {
   if ((code >= 0) && (lp & 0x80000000)) {
     auto pObject = reinterpret_cast<PHB_ITEM>(GetWindowLongPtr(GetActiveWindow(), GWLP_USERDATA));

@@ -46,11 +46,11 @@ void hwg_writelog(const char *sFile, const char *sTraceMsg, ...);
 
 static unsigned char *pStart;
 static unsigned long ulDataLen;
-static int nParseError;
+static int32_t nParseError;
 static unsigned long ulOffset;
 
 #define XML_PREDEFS_KOL 6
-static int nPredefsKol = XML_PREDEFS_KOL;
+static int32_t nPredefsKol = XML_PREDEFS_KOL;
 
 static unsigned char *predefinedEntity1[] = {reinterpret_cast<unsigned char *>(const_cast<char *>("lt;")),
                                              reinterpret_cast<unsigned char *>(const_cast<char *>("gt;")),
@@ -63,7 +63,7 @@ static unsigned char *predefinedEntity2 = reinterpret_cast<unsigned char *>(cons
 static unsigned char **pEntity1 = nullptr;
 static unsigned char *pEntity2 = nullptr;
 
-void hbxml_error(int nError, unsigned char *ptr)
+void hbxml_error(int32_t nError, unsigned char *ptr)
 {
   nParseError = nError;
   ulOffset = ptr - pStart;
@@ -93,7 +93,7 @@ HB_FUNC(HBXML_SETENTITY)
     auto ulLen = static_cast<unsigned long>(hb_arrayLen(pArray));
     unsigned long ulItemLen;
 
-    nPredefsKol = static_cast<int>(ulLen);
+    nPredefsKol = static_cast<int32_t>(ulLen);
     pEntity1 = static_cast<unsigned char **>(hb_xgrab(ulLen * sizeof(unsigned char *)));
     pEntity2 = static_cast<unsigned char *>(hb_xgrab(ulLen + 1));
     pEntity2[ulLen] = '\0';
@@ -147,7 +147,7 @@ HB_FUNC(HBXML_PRESAVE)
     while ((c = *ptr) != 0) {
       *ptr1 = *ptr;
       if (c != ' ' || (ptr > pBuffer && *(ptr - 1) == ' ')) {
-        int iLen;
+        int32_t iLen;
         for (unsigned char *ptrs = pEntity2; *ptrs; ptrs++) {
           if (*ptrs == c) {
             iLen = strlen(reinterpret_cast<char *>(pEntity1[ptrs - pEntity2]));
@@ -177,13 +177,13 @@ HB_FUNC(HBXML_PRESAVE)
 PHB_ITEM hbxml_pp(unsigned char *ptr, unsigned long ulLen)
 {
   unsigned char *ptrStart = ptr;
-  int i, nlen;
+  int32_t i, nlen;
   unsigned long ul = 0, ul1;
 
   while (ul < ulLen) {
     if (*ptr == '&') {
       if (*(ptr + 1) == '#') {
-        int iChar;
+        int32_t iChar;
         sscanf(reinterpret_cast<char *>(ptr) + 2, "%d", &iChar);
         *ptr = iChar;
         i = 1;
@@ -243,8 +243,8 @@ HB_FUNC(HBXML_PRELOAD)
   unsigned long ulLen =
       HB_ISNUM(2) ? static_cast<unsigned long>(hb_parnl(2)) : static_cast<unsigned long>(hb_parclen(1));
   auto ptrnew = static_cast<unsigned char *>(malloc(ulLen + 1));
-  int nlen;
-  int iChar;
+  int32_t nlen;
+  int32_t iChar;
 
   if (!pEntity1) {
     pEntity1 = predefinedEntity1;
@@ -262,7 +262,7 @@ HB_FUNC(HBXML_PRELOAD)
           ptr++;
         }
       } else {
-        int i;
+        int32_t i;
         for (i = 0; i < nPredefsKol; i++) {
           nlen = strlen(reinterpret_cast<char *>(pEntity1[i]));
           if (!memcmp(ptr, pEntity1[i], nlen)) {
@@ -287,10 +287,10 @@ HB_FUNC(HBXML_PRELOAD)
   free(ptrnew);
 }
 
-PHB_ITEM hbxml_getattr(unsigned char **pBuffer, int *lSingle)
+PHB_ITEM hbxml_getattr(unsigned char **pBuffer, int32_t *lSingle)
 {
   unsigned char *ptr, cQuo;
-  int iLen;
+  int32_t iLen;
   auto bPI = 0;
   PHB_ITEM pArray = hb_itemNew(nullptr);
   PHB_ITEM pSubArray = nullptr;
@@ -468,8 +468,8 @@ int hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
   PHB_ITEM pNode = hbxml_addnode(pParent);
   PHB_ITEM pArray;
   unsigned char cNodeName[50];
-  int lEmpty;
-  int lSingle;
+  int32_t lEmpty;
+  int32_t lSingle;
 
   (*pBuffer)++;
   if (**pBuffer == '?') {
@@ -477,7 +477,7 @@ int hbxml_readElement(PHB_ITEM pParent, unsigned char **pBuffer)
   }
   unsigned char *ptr = *pBuffer;
   SKIPCHARS(ptr);
-  int nLenNodeName = ptr - *pBuffer - ((*(ptr - 1) == '/') ? 1 : 0);
+  int32_t nLenNodeName = ptr - *pBuffer - ((*(ptr - 1) == '/') ? 1 : 0);
   memcpy(cNodeName, *pBuffer, nLenNodeName);
   cNodeName[nLenNodeName] = '\0';
 
@@ -573,7 +573,7 @@ HBXML_GETATTR(cp1, np2) -->
 HB_FUNC(HBXML_GETATTR)
 {
   auto pBuffer = reinterpret_cast<unsigned char *>(const_cast<char *>(hb_parc(1)));
-  int lSingle;
+  int32_t lSingle;
   pStart = pBuffer;
   ulDataLen = hb_parclen(1);
   hb_itemReturn(hbxml_getattr(&pBuffer, &lSingle));
@@ -634,7 +634,7 @@ HB_FUNC(HBXML_GETDOC)
     hbxml_error(XML_ERROR_NOT_LT, ptr);
   } else {
     if (!memcmp(ptr + 1, "?xml", 4)) {
-      int lSingle;
+      int32_t lSingle;
       PHB_ITEM pArray = hbxml_getattr(&ptr, &lSingle);
       if (!pArray || nParseError) {
         if (pBuffer) {

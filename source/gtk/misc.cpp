@@ -122,12 +122,12 @@ HB_FUNC(HWG_GETKEYBOARDSTATE)
 
 HB_FUNC(HWG_LOWORD)
 {
-  hb_retni(static_cast<int>(hb_parnl(1) & 0xFFFF));
+  hb_retni(static_cast<int32_t>(hb_parnl(1) & 0xFFFF));
 }
 
 HB_FUNC(HWG_HIWORD)
 {
-  hb_retni(static_cast<int>((hb_parnl(1) >> 16) & 0xFFFF));
+  hb_retni(static_cast<int32_t>((hb_parnl(1) >> 16) & 0xFFFF));
 }
 
 /*
@@ -269,7 +269,7 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   auto cmd_file = static_cast<FILE *>(popen(hb_parc(1), "r"));
   FILE *hOut;
   char buf[CHUNK_LEN];
-  int bytes_read, iOutExist = 0, iExitCode;
+  int32_t bytes_read, iOutExist = 0, iExitCode;
 
   if (!cmd_file) {
     hb_retni(-1);
@@ -432,10 +432,10 @@ HB_FUNC(HWG_STOD)
 
 /* converts single hex char to int, returns -1 , if not in range
    returns 0 - 15 (dec) , only a half byte */
-int hwg_hexbin(int cha)
+int hwg_hexbin(int32_t cha)
 {
   char gross;
-  int o;
+  int32_t o;
 
   gross = toupper(cha);
   switch (gross) {
@@ -503,9 +503,9 @@ HB_FUNC(HWG_BIN2DC)
   unsigned char bu[8];     /* Buffer with binary contents of double value */
   unsigned char szHex[17]; /* The hex string from parameter 1 + null byte*/
 
-  int p;
-  int c;  /* char with int value hex from hex */
-  int od; /* odd even sign / gerade - ungerade */
+  int32_t p;
+  int32_t c;  /* char with int value hex from hex */
+  int32_t od; /* odd even sign / gerade - ungerade */
 
   /* init vars */
 
@@ -549,7 +549,7 @@ HB_FUNC(HWG_BIN2DC)
 
   /* Convert hex to bin */
 
-  for (int i = 0; i < 16; i++) {
+  for (int32_t i = 0; i < 16; i++) {
     c = hwg_hexbin(szHex[i]);
     /* ignore, if not in 0 ... 1, A ... F */
     if (c != -1) {

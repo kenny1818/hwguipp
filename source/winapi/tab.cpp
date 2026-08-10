@@ -39,7 +39,7 @@ HB_FUNC(HWG_INITTABCONTROL)
 {
   auto hTab = hwg_par_HWND(1);
   auto pArr = hb_param(2, Harbour::Item::ARRAY);
-  int iItems = hb_parnl(3);
+  int32_t iItems = hb_parnl(3);
   TC_ITEM tie;
   ULONG ulTabs = hb_arrayLen(pArr);
 
@@ -129,7 +129,7 @@ HB_FUNC(HWG_TAB_HITTEST)
     ScreenToClient(hTab, &(ht.pt));
   }
 
-  auto res = static_cast<int>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
+  auto res = static_cast<int32_t>(SendMessage(hTab, TCM_HITTEST, 0, reinterpret_cast<LPARAM>(&ht)));
 
   hb_storni(ht.flags, 4);
   hb_retni(res);

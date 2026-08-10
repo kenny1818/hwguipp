@@ -23,9 +23,9 @@
 // #define LINE_MAX 16384
 #define LINE_MAX 0x20000
 //----------------------------------------------------------------------------//
-static int file_read(FILE *stream, char *string)
+static int32_t file_read(FILE *stream, char *string)
 {
-  int ch;
+  int32_t ch;
   auto cnbr = 0;
 
   memset(string, ' ', LINE_MAX);
@@ -91,10 +91,10 @@ HB_FUNC(HWG_WIN_ANSITOOEM)
   auto pString = hb_param(1, Harbour::Item::STRING);
 
   if (pString) {
-    int nLen = (int)hb_itemGetCLen(pString);
+    int32_t nLen = (int)hb_itemGetCLen(pString);
     auto pszSrc = hb_itemGetCPtr(pString);
 
-    int nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, nullptr, 0);
+    int32_t nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, nullptr, 0);
     auto pszWide = static_cast<LPWSTR>(hb_xgrab((nWideLen + 1) * sizeof(wchar_t)));
 
     MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, pszWide, nWideLen);

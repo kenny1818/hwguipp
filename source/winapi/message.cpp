@@ -10,11 +10,11 @@
 #include <commctrl.h>
 #include <richedit.h>
 
-static int s_msgbox(UINT uType)
+static int32_t s_msgbox(UINT uType)
 {
   void *hText;
   void *hTitle;
-  int iResult = MessageBox(GetActiveWindow(), HB_PARSTR(1, &hText, nullptr), HB_PARSTRDEF(2, &hTitle, nullptr), uType);
+  int32_t iResult = MessageBox(GetActiveWindow(), HB_PARSTR(1, &hText, nullptr), HB_PARSTRDEF(2, &hTitle, nullptr), uType);
   hb_strfree(hText);
   hb_strfree(hTitle);
   return iResult;
@@ -47,7 +47,7 @@ HB_FUNC(HWG_MSGNOYES)
 
 HB_FUNC(HWG_MSGYESNOCANCEL)
 {
-  int iResult = s_msgbox(MB_YESNOCANCEL | MB_ICONQUESTION);
+  int32_t iResult = s_msgbox(MB_YESNOCANCEL | MB_ICONQUESTION);
   hb_retni((iResult == 6) ? 1 : ((iResult == 7) ? 2 : 0));
 }
 

@@ -125,7 +125,7 @@ HB_FUNC(HWG_INITSTATUS)
   auto hStatus = hwg_par_HWND(2);
   RECT rcClient;
   HLOCAL hloc;
-  int nWidth, j;
+  int32_t nWidth, j;
   auto nParts = hb_parni(3);
   auto pArray = hb_param(4, Harbour::Item::ARRAY);
 

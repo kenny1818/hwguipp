@@ -88,7 +88,7 @@ HB_FUNC(HWG_ALPHA2PIXBUF)
 HB_FUNC(HWG_INVALIDATERECT)
 {
   auto widget = static_cast<GtkWidget *>(hb_parptr(1));
-  int x1, y1, x2, y2;
+  int32_t x1, y1, x2, y2;
 
   if (hb_pcount() > 2) {
     x1 = hb_parni(3);
@@ -176,12 +176,12 @@ HB_FUNC(HWG_DRAWGRID)
   auto y1 = hb_parni(3);
   auto x2 = hb_parni(4);
   auto y2 = hb_parni(5);
-  int n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
+  int32_t n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
   unsigned int uiColor = (HB_ISNIL(7)) ? 0 : static_cast<unsigned int>(hb_parnl(7));
 
   hwg_setcolor(hDC->cr, uiColor);
-  for (int i = x1 + n; i < x2; i += n) {
-    for (int j = y1 + n; j < y2; j += n) {
+  for (int32_t i = x1 + n; i < x2; i += n) {
+    for (int32_t j = y1 + n; j < y2; j += n) {
       cairo_rectangle(hDC->cr, static_cast<gdouble>(i), static_cast<gdouble>(j), 1, 1);
     }
   }
@@ -295,7 +295,7 @@ HB_FUNC(HWG_DRAWBUTTON)
   }
 }
 
-void hwg_gtk_drawedge(PHWGUI_HDC hDC, int left, int top, int right, int bottom, unsigned int iType)
+void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, unsigned int iType)
 {
   GtkStyle *style = gtk_widget_get_style(hDC->widget);
 
@@ -448,11 +448,11 @@ HB_FUNC(HWG_SPREADBITMAP)
   auto obj = static_cast<PHWGUI_PIXBUF>(hb_parptr(2));
   GtkWidget *widget = hDC->widget;
   GdkPixbuf *pixbuf;
-  int nWidth, nHeight, x1, x2, y1, y2, nw, nh;
-  int nLeft = (HB_ISNUM(3)) ? hb_parni(3) : 0;
-  int nTop = (HB_ISNUM(4)) ? hb_parni(4) : 0;
-  int nRight = (HB_ISNUM(5)) ? hb_parni(5) : 0;
-  int nBottom = (HB_ISNUM(6)) ? hb_parni(6) : 0;
+  int32_t nWidth, nHeight, x1, x2, y1, y2, nw, nh;
+  int32_t nLeft = (HB_ISNUM(3)) ? hb_parni(3) : 0;
+  int32_t nTop = (HB_ISNUM(4)) ? hb_parni(4) : 0;
+  int32_t nRight = (HB_ISNUM(5)) ? hb_parni(5) : 0;
+  int32_t nBottom = (HB_ISNUM(6)) ? hb_parni(6) : 0;
 
   if (nLeft == 0 && nRight == 0) {
     GtkAllocation alloc;
@@ -839,7 +839,7 @@ void hwg_prepare_cairo_colors(long int nColor, gdouble *r, gdouble *g, gdouble *
 }
 
 /*
- * hwg_drawGradient(hDC, x1, y1, x2, y2, int type, array colors, array stops, array radiuses)
+ * hwg_drawGradient(hDC, x1, y1, x2, y2, int32_t type, array colors, array stops, array radiuses)
  */
 HB_FUNC(HWG_DRAWGRADIENT)
 {
@@ -986,7 +986,7 @@ HB_FUNC(HWG__DRAWCHECKBTN)
   auto y1 = static_cast<gdouble>(hb_parni(3));
   auto y2 = static_cast<gdouble>(hb_parni(5));
   gdouble nHeight = y2 - y1 - 6;
-  int iSet = hb_parl(6);
+  int32_t iSet = hb_parl(6);
   const char *cTitle = (hb_pcount() > 6) ? hb_parc(7) : nullptr;
   gchar *gcTitle;
 
@@ -1027,7 +1027,7 @@ HB_FUNC(HWG__DRAWRADIOBTN)
   auto y1 = static_cast<gdouble>(hb_parni(3));
   auto y2 = static_cast<gdouble>(hb_parni(5));
   gdouble nHeight = y2 - y1 - 4;
-  int iSet = hb_parl(6);
+  int32_t iSet = hb_parl(6);
   const char *cTitle = (hb_pcount() > 6) ? hb_parc(7) : nullptr;
   gchar *gcTitle;
 

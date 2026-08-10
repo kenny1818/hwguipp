@@ -43,10 +43,10 @@ HB_FUNC(HWG_SETDATEPICKER)
 
   if (pDate) {
     SYSTEMTIME sysTime, st;
-    int lYear, lMonth, lDay;
-    int lHour, lMinute;
+    int32_t lYear, lMonth, lDay;
+    int32_t lHour, lMinute;
     auto lMilliseconds = 0;
-    int lSecond;
+    int32_t lSecond;
 
     hb_dateDecode(hb_itemGetDL(pDate), &lYear, &lMonth, &lDay);
     if (hb_pcount() < 3) {
@@ -89,7 +89,7 @@ HB_FUNC(HWG_SETDATEPICKERNULL)
 HB_FUNC(HWG_GETDATEPICKER)
 {
   SYSTEMTIME st;
-  int iret;
+  int32_t iret;
   WPARAM wParam = (hb_pcount() > 1) ? hb_parnl(2) : GDT_VALID;
 
   iret = SendMessage(hwg_par_HWND(1), DTM_GETSYSTEMTIME, wParam, reinterpret_cast<LPARAM>(&st));
