@@ -96,7 +96,7 @@ HB_FUNC(HWG_REGGETVALUE)
   int32_t length;
 
   if (RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS) {
-    length = static_cast<int>(lpcbData);
+    length = static_cast<int32_t>(lpcbData);
     lpData = static_cast<LPBYTE>(hb_xgrab(length + 1));
     if (RegQueryValueEx(hKey, lpValueName, nullptr, &lpType, lpData, &lpcbData) == ERROR_SUCCESS) {
       hb_retclen(reinterpret_cast<char *>(lpData),

@@ -393,7 +393,7 @@ int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPr
   // wrlog(nullptr, "Lineout-1\r\n");
 
   if (pted->hDCPrn) {
-    x1 = static_cast<int>(x1 * pted->dKoeff);
+    x1 = static_cast<int32_t>(x1 * pted->dKoeff);
   }
 
   if (iPrinted) {

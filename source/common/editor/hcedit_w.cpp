@@ -143,7 +143,7 @@ int hced_utf8bytes( char * szText, int32_t iLen )
         --iLen;
      }
   }
-  return static_cast<int>(ul);
+  return static_cast<int32_t>(ul);
 }
 */
 
@@ -337,7 +337,7 @@ int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPr
   int32_t i, lasti, iRealLen;
 
   if (pted->hDCPrn) {
-    x1 = static_cast<int>(x1 * pted->dKoeff);
+    x1 = static_cast<int32_t>(x1 * pted->dKoeff);
   }
 
   if (iPrinted) {
@@ -709,7 +709,7 @@ HB_FUNC(HCED_EXACTCARETPOS)
       xpos = x1;
     }
 
-    iPrinted = ted_CalcLineWidth(pted, szText, static_cast<int>(iLen), xpos - x1, &iRealWidth, 0);
+    iPrinted = ted_CalcLineWidth(pted, szText, static_cast<int32_t>(iLen), xpos - x1, &iRealWidth, 0);
     x1 += iRealWidth;
 
     if (xpos <= pted->iWidth + iShiftL) {

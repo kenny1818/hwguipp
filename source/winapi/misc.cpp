@@ -133,12 +133,12 @@ HB_FUNC(HWG_GETSTOCKOBJECT)
 
 HB_FUNC(HWG_LOWORD)
 {
-  hb_retni(static_cast<int>((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) & 0xFFFF));
+  hb_retni(static_cast<int32_t>((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) & 0xFFFF));
 }
 
 HB_FUNC(HWG_HIWORD)
 {
-  hb_retni(static_cast<int>(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
+  hb_retni(static_cast<int32_t>(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
 }
 
 // HWG_BITOR(nValue1, nValue2) --> numeric
@@ -924,7 +924,7 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   }
   CloseHandle(g_hChildStd_OUT_Rd);
 
-  hb_retni(static_cast<int>(dwExitCode));
+  hb_retni(static_cast<int32_t>(dwExitCode));
 }
 
 HB_FUNC(HWG_RUNAPP)
