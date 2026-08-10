@@ -135,7 +135,7 @@ int hced_utf8bytes( char * szText, int32_t iLen )
   int32_t n;
   HB_WCHAR wc;
 
-  for( ul = 0; ul < nLen && iLen; ) {
+  for (ul = 0; ul < nLen && iLen;) {
      if (hb_cdpUTF8ToU16NextChar( szText[ul], &n, &wc )) {
         ++ul;
      }
@@ -835,7 +835,7 @@ HB_FUNC(HCED_LINEOUT)
   }
   iHeight++;
   /*
-  for( i = 0, lasti = 0; i <= iPrinted; i++ ) {
+  for (i = 0, lasti = 0; i <= iPrinted; i++) {
      if (i == iPrinted || ( pattr + i )->iFont != ( pattr + lasti )->iFont) {
         font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) +
               ( pattr + lasti )->iFont;
