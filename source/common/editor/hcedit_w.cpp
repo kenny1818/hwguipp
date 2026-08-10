@@ -143,7 +143,7 @@ int hced_utf8bytes( char * szText, int32_t iLen )
         --iLen;
      }
   }
-  return (int) ul;
+  return static_cast<int>(ul);
 }
 */
 
@@ -337,7 +337,7 @@ int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPr
   int32_t i, lasti, iRealLen;
 
   if (pted->hDCPrn) {
-    x1 = (int)(x1 * pted->dKoeff);
+    x1 = static_cast<int>(x1 * pted->dKoeff);
   }
 
   if (iPrinted) {
@@ -689,7 +689,7 @@ HB_FUNC(HCED_EXACTCARETPOS)
   HB_SIZE iLen;
   LPCTSTR szText = HB_PARSTR(2, &hText, &iLen);
 #else
-  char *szText = (char *)hb_parc(2);
+  char *szText = const_cast<char *>(hb_parc(2));
   int32_t iLen = hb_parclen(2);
 #endif
   auto x1 = hb_parni(3);
@@ -709,7 +709,7 @@ HB_FUNC(HCED_EXACTCARETPOS)
       xpos = x1;
     }
 
-    iPrinted = ted_CalcLineWidth(pted, szText, (int)iLen, xpos - x1, &iRealWidth, 0);
+    iPrinted = ted_CalcLineWidth(pted, szText, static_cast<int>(iLen), xpos - x1, &iRealWidth, 0);
     x1 += iRealWidth;
 
     if (xpos <= pted->iWidth + iShiftL) {
@@ -781,7 +781,7 @@ HB_FUNC(HCED_LINEOUT)
   void *hText;
   LPCTSTR szText = HB_PARSTR(5, &hText, nullptr);
 #else
-  char *szText = (char *)hb_parc(5);
+  char *szText = const_cast<char *>(hb_parc(5));
 #endif
   int32_t iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
   int16_t bCalc = (int16_t)((HB_ISNIL(9)) ? 1 : hb_parl(9));

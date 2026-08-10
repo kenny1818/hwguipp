@@ -96,10 +96,10 @@ HB_FUNC(HWG_REGGETVALUE)
   int32_t length;
 
   if (RegQueryValueEx(hKey, lpValueName, nullptr, nullptr, nullptr, &lpcbData) == ERROR_SUCCESS) {
-    length = (int)lpcbData;
+    length = static_cast<int>(lpcbData);
     lpData = static_cast<LPBYTE>(hb_xgrab(length + 1));
     if (RegQueryValueEx(hKey, lpValueName, nullptr, &lpType, lpData, &lpcbData) == ERROR_SUCCESS) {
-      hb_retclen((char *)lpData,
+      hb_retclen(reinterpret_cast<char *>(lpData),
                  (lpType == REG_SZ || lpType == REG_MULTI_SZ || lpType == REG_EXPAND_SZ) ? length - 1 : length);
       if (hb_pcount() > 2) {
         hb_stornl(static_cast<LONG>(lpType), 3);

@@ -356,7 +356,7 @@ static HANDLE CreateDIB(DWORD dwWidth, DWORD dwHeight, WORD wBitCount)
   DWORD dwBytesPerLine = (((wBitCount * dwWidth) + 31) / 32 * 4); // Number of bytes per scanline
 
   //  only 24 bit DIBs supported
-  DWORD dwLen = bi.biSize + 0 /* PaletteSize((LPSTR)&bi) */ + (dwBytesPerLine * dwHeight); // size of memory block
+  DWORD dwLen = bi.biSize + 0 /* PaletteSize(static_cast<LPSTR>(&bi)) */ + (dwBytesPerLine * dwHeight); // size of memory block
 
   // 24/02/2005 - <maurilio.longo@libero.it>
   // needed to copy bits afterward

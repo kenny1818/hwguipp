@@ -91,7 +91,7 @@ HB_FUNC(HWG_WIN_ANSITOOEM)
   auto pString = hb_param(1, Harbour::Item::STRING);
 
   if (pString) {
-    int32_t nLen = (int)hb_itemGetCLen(pString);
+    int32_t nLen = static_cast<int>(hb_itemGetCLen(pString));
     auto pszSrc = hb_itemGetCPtr(pString);
 
     int32_t nWideLen = MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pszSrc, nLen, nullptr, 0);

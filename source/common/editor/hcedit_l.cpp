@@ -393,7 +393,7 @@ int ted_LineOut(TEDIT *pted, int32_t x1, int32_t ypos, char *szText, int32_t iPr
   // wrlog(nullptr, "Lineout-1\r\n");
 
   if (pted->hDCPrn) {
-    x1 = (int)(x1 * pted->dKoeff);
+    x1 = static_cast<int>(x1 * pted->dKoeff);
   }
 
   if (iPrinted) {
@@ -776,7 +776,7 @@ HB_FUNC(HCED_SETCARETPOS)
 HB_FUNC(HCED_EXACTCARETPOS)
 {
   TEDIT *pted = (TEDIT *)hb_parptr(1);
-  char *szText = (char *)hb_parc(2), *ptr;
+  char *szText = static_cast<char *>(hb_parc(2)), *ptr;
   auto x1 = hb_parni(3);
   auto xpos = hb_parni(4);
   auto y1 = hb_parni(5);
@@ -879,7 +879,7 @@ HB_FUNC(HCED_LINEOUT)
 {
   TEDIT *pted = (TEDIT *)hb_parptr(1);
   TEDFONT *font;
-  char *szText = (char *)hb_parc(5);
+  char *szText = static_cast<char *>(hb_parc(5));
   int32_t iRight = (HB_ISNIL(8)) ? 0 : hb_parni(8);
   int16_t bCalc = (HB_ISNIL(9)) ? 1 : hb_parl(9);
   auto x1 = hb_parni(2);

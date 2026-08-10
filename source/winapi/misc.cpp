@@ -113,7 +113,7 @@ HB_FUNC(HWG_GETCLIPBOARDTEXT)
         if (nSize) {
           lpText = static_cast<LPTSTR>(hb_xgrab(nSize + 1));
           memcpy(lpText, lpMem, nSize);
-          ((char *)lpText)[nSize] = 0;
+          (static_cast<char *>(lpText))[nSize] = 0;
         }
         (void)GlobalUnlock(hglb);
       }
@@ -133,12 +133,12 @@ HB_FUNC(HWG_GETSTOCKOBJECT)
 
 HB_FUNC(HWG_LOWORD)
 {
-  hb_retni((int)((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) & 0xFFFF));
+  hb_retni(static_cast<int>((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) & 0xFFFF));
 }
 
 HB_FUNC(HWG_HIWORD)
 {
-  hb_retni((int)(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
+  hb_retni(static_cast<int>(((HB_ISPOINTER(1) ? PtrToUlong(hb_parptr(1)) : static_cast<ULONG>(hb_parnl(1))) >> 16) & 0xFFFF));
 }
 
 // HWG_BITOR(nValue1, nValue2) --> numeric
@@ -277,7 +277,7 @@ HB_FUNC(HWG_GETKEYBOARDSTATE)
   BYTE lpbKeyState[256];
   GetKeyboardState(lpbKeyState);
   lpbKeyState[255] = '\0';
-  hb_retclen((char *)lpbKeyState, 255);
+  hb_retclen(reinterpret_cast<char *>(lpbKeyState), 255);
 }
 
 HB_FUNC(HWG_GETKEYSTATE)
@@ -924,7 +924,7 @@ HB_FUNC(HWG_RUNCONSOLEAPP)
   }
   CloseHandle(g_hChildStd_OUT_Rd);
 
-  hb_retni((int)dwExitCode);
+  hb_retni(static_cast<int>(dwExitCode));
 }
 
 HB_FUNC(HWG_RUNAPP)

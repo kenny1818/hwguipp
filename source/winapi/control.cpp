@@ -611,7 +611,7 @@ HB_FUNC(HWG_GETUTCTIMEDATE) // Format: W,YYYYMMDD-HH:MM:SS
   SYSTEMTIME st{};
   TCHAR cst[41] = {0};
   GetSystemTime(&st);
-  sprintf((char *)cst, "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour,
+  sprintf(static_cast<char *>(cst), "%01d.%04d%02d%02d-%02d:%02d:%02d", st.wDayOfWeek, st.wYear, st.wMonth, st.wDay, st.wHour,
           st.wMinute, st.wSecond);
   HB_RETSTR(cst);
 }
@@ -621,7 +621,7 @@ HB_FUNC(HWG_GETDATEANSI) // Format: YYYYMMDD, based on local time
   SYSTEMTIME lt{};
   TCHAR cst[41] = {0};
   GetLocalTime(&lt);
-  sprintf((char *)cst, "%04d%02d%02d", lt.wYear, lt.wMonth, lt.wDay);
+  sprintf(static_cast<char *>(cst), "%04d%02d%02d", lt.wYear, lt.wMonth, lt.wDay);
   HB_RETSTR(cst);
 }
 
@@ -636,7 +636,7 @@ HB_FUNC(HWG_DEFUSERLANG) // Windows only, on other OSs available, returns foreve
   TCHAR clang[25] = {0};
   LANGID l; // ==> WORD
   l = GetUserDefaultUILanguage();
-  sprintf((char *)clang, "%d", l);
+  sprintf(static_cast<char *>(clang), "%d", l);
   HB_RETSTR(clang);
 }
 
