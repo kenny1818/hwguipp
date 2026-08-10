@@ -386,7 +386,7 @@ static void print_page(GtkPrintOperation *operation, GtkPrintContext *context, g
   cr = gtk_print_context_get_cairo_context(context);
   draw_page(cr, cpage);
 
-  if (hb_arrayLen(ppages) >= static_cast<unsigned int>(page_nr) + 2) {
+  if (hb_arrayLen(ppages) >= static_cast<uint32_t>(page_nr) + 2) {
     page_setup = gtk_print_context_get_page_setup(context);
     ptr = const_cast<char *>(hb_arrayGetCPtr(ppages, page_nr + 2));
     if (!strncmp(ptr, "page", 4)) {

@@ -143,7 +143,7 @@ extern void cb_signal(GtkWidget *widget, gchar *data);
 extern void all_signal_connect(gpointer hWnd);
 extern gint cb_signal_size(GtkWidget *widget, GtkAllocation *allocation, gpointer data);
 extern GtkFixed *getFixedBox(GObject *handle);
-extern void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, unsigned int iType);
+extern void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, uint32_t iType);
 
 gchar *szDelimiters = " .,-";
 
@@ -982,7 +982,7 @@ HB_FUNC(HCED_COLOR2X)
   int32_t i;
   long int n = hb_parnl(1);
 
-  sprintf(s, "#%2X%2X%2X", (unsigned int)(n % 256), (unsigned int)((n / 256) % 256), (unsigned int)((n / 65536) % 256));
+  sprintf(s, "#%2X%2X%2X", (uint32_t)(n % 256), (uint32_t)((n / 256) % 256), (uint32_t)((n / 65536) % 256));
   for (i = 0; i < 7; i++) {
     if (s[i] == ' ') {
       s[i] = '0';

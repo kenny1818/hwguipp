@@ -177,7 +177,7 @@ HB_FUNC(HWG_DRAWGRID)
   auto x2 = hb_parni(4);
   auto y2 = hb_parni(5);
   int32_t n = (HB_ISNIL(6)) ? 4 : hb_parni(6);
-  unsigned int uiColor = (HB_ISNIL(7)) ? 0 : static_cast<unsigned int>(hb_parnl(7));
+  uint32_t uiColor = (HB_ISNIL(7)) ? 0 : static_cast<uint32_t>(hb_parnl(7));
 
   hwg_setcolor(hDC->cr, uiColor);
   for (int32_t i = x1 + n; i < x2; i += n) {
@@ -247,7 +247,7 @@ HB_FUNC(HWG_DRAWBUTTON)
   auto top = hb_parni(3);
   auto right = hb_parni(4);
   auto bottom = hb_parni(5);
-  unsigned int iType = hb_parni(6);
+  uint32_t iType = hb_parni(6);
   GtkStyle *style = gtk_widget_get_style(hDC->widget);
 
   if (iType == 0) {
@@ -295,7 +295,7 @@ HB_FUNC(HWG_DRAWBUTTON)
   }
 }
 
-void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, unsigned int iType)
+void hwg_gtk_drawedge(PHWGUI_HDC hDC, int32_t left, int32_t top, int32_t right, int32_t bottom, uint32_t iType)
 {
   GtkStyle *style = gtk_widget_get_style(hDC->widget);
 

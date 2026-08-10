@@ -881,7 +881,7 @@ HB_FUNC(HCED_COLOR2X)
   int32_t i;
   long int n = hb_parnl(1);
 
-  sprintf(s, "#%2X%2X%2X", (unsigned int)(n % 256), (unsigned int)((n / 256) % 256), (unsigned int)((n / 65536) % 256));
+  sprintf(s, "#%2X%2X%2X", (uint32_t)(n % 256), (uint32_t)((n / 256) % 256), (uint32_t)((n / 65536) % 256));
   for (i = 0; i < 7; i++) {
     if (s[i] == ' ') {
       s[i] = '0';

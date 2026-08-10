@@ -62,7 +62,7 @@ GtkFixed *getFixedBox(GObject *handle)
   return static_cast<GtkFixed *>(g_object_get_data(handle, "fbox"));
 }
 
-void hwg_colorN2C(unsigned int lColor, char *szColor)
+void hwg_colorN2C(uint32_t lColor, char *szColor)
 {
   char c;
   sprintf(szColor, "%06x", lColor);
@@ -1356,7 +1356,7 @@ HB_FUNC(HWG_SETFGCOLOR)
   const char *pName = gtk_widget_get_name(hCtrl);
 
   if (pName && strncmp(pName, "Gtk", 3) != 0) {
-    hwg_colorN2C(static_cast<unsigned int>(hb_parni(2)), szColor);
+    hwg_colorN2C(static_cast<uint32_t>(hb_parni(2)), szColor);
     sprintf(szData, "#%s { color: #%s; }", pName, szColor);
     // hwg_writelog(nullptr, szData);
     set_css_data(szData);
@@ -1370,7 +1370,7 @@ HB_FUNC(HWG_SETBGCOLOR)
   const char *pName = gtk_widget_get_name(hCtrl);
 
   if (pName && strncmp(pName, "Gtk", 3) != 0) {
-    hwg_colorN2C(static_cast<unsigned int>(hb_parni(2)), szColor);
+    hwg_colorN2C(static_cast<uint32_t>(hb_parni(2)), szColor);
     sprintf(szData, "#%s { background: #%s; }", pName, szColor);
     // hwg_writelog(nullptr, szData);
     set_css_data(szData);
