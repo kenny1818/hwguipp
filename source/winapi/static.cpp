@@ -36,10 +36,10 @@ HB_FUNC(HWG_CREATESTATIC)
                      reinterpret_cast<HMENU>(static_cast<UINT_PTR>(hb_parni(2))), GetModuleHandle(nullptr), nullptr);
 
 #if 0
-     if( hb_pcount() > 7 ) {
+     if (hb_pcount() > 7) {
         void * hStr;
         LPCTSTR lpText = HB_PARSTR(8, &hStr, nullptr);
-        if( lpText ) {
+        if (lpText) {
            SendMessage(hWndEdit, WM_SETTEXT, 0, static_cast<LPARAM>(lpText));
         }
         hb_strfree(hStr);

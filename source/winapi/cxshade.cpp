@@ -380,7 +380,7 @@ void cxshade_Draw(PCXSHADE pshade, HDC pRealDC, int16_t state)
     }
 #if 0
     // paint the focus rect
-    if( (state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0) ) {
+    if ((state & STATE_FOCUS) && (pshade->m_FocusRectMargin > 0)) {
        InflateRect(&r,-pshade->m_FocusRectMargin, -pshade->m_FocusRectMargin);
        cxdib_Draw(&(pshade->m_dh), pDC, 1+r.left, r.top);
        cxdib_Draw(&(pshade->m_dh), pDC, 1+r.left, r.bottom);

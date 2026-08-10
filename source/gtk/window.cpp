@@ -267,10 +267,10 @@ HB_FUNC(HWG_ACTIVATEMAINWINDOW)
   /*
      auto hWnd = static_cast<GtkWidget*>(hb_parptr(1));
 
-     if( !HB_ISNIL(3) && hb_parl(3) ) {
+     if (!HB_ISNIL(3) && hb_parl(3)) {
         gtk_window_maximize(static_cast<GtkWindow*>(hWnd));
      }
-     if( !HB_ISNIL(4) && hb_parl(4) ) {
+     if (!HB_ISNIL(4) && hb_parl(4)) {
         gtk_window_iconify(static_cast<GtkWindow*>(hWnd));
      }
 
@@ -552,7 +552,7 @@ static gint cb_event(GtkWidget *widget, GdkEvent *event, gchar *data)
     pSym_onEvent = hb_dynsymFindName("ONEVENT");
   }
 
-  // if( !gObject ) {
+  // if (!gObject) {
   //    gObject = g_object_get_data(static_cast<GObject*>(widget->parent->parent), "obj");
   // }
   if (pSym_onEvent && gObject) {
@@ -905,7 +905,7 @@ HB_FUNC(HWG_WINDOWSETRESIZE)
   auto handle = static_cast<GtkWindow *>(hb_parptr(1));
   gint width = 0, height = 0, bResize = hb_parl(2);
 
-  // if( !bResize ) {
+  // if (!bResize) {
   gtk_window_get_size(handle, &width, &height);
   gtk_widget_set_size_request(reinterpret_cast<GtkWidget *>(handle), width, height);
   //}
@@ -1051,7 +1051,7 @@ HB_FUNC(HWG_ICONIFY) /* minimize */
 HB_FUNC( HWG_SHELLMODIFYICON )
 {
    PHWGUI_PIXBUF szFile = HB_ISPOINTER(2) ? static_cast<PHWGUI_PIXBUF>(hb_parptr(2)) : nullptr;
-   if( szFile ) {
+   if (szFile) {
       gtk_window_set_icon(static_cast<GtkWindow*>(hb_parptr(1)), szFile->handle);
       gtk_window_set_default_icon(szFile->handle);
       gtk_window_iconify(static_cast<GtkWindow*>(hb_parptr(1)));

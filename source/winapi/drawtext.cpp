@@ -82,7 +82,7 @@ HB_FUNC(HWG_DRAWTEXT)
                    &rc, uFormat);
   hb_strfree(hText);
 
-  // if( HB_ISBYREF(uiPos) )
+  // if (HB_ISBYREF(uiPos))
   if (HB_ISARRAY(8)) {
     hb_storvni(rc.left, 8, 1);
     hb_storvni(rc.top, 8, 2);

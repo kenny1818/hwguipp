@@ -389,7 +389,7 @@ HB_FUNC(HWG_WINDOW2BITMAP)
   }
 
 #if 0
-  if( lFull ) {
+  if (lFull) {
      GetWindowRect(hWnd, &rc);
   } else {
      GetClientRect(hWnd, &rc);

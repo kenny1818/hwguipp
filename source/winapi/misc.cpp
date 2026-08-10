@@ -770,7 +770,7 @@ HB_FUNC( HWG_PROCESSRUN )
     si.dwFlags = STARTF_USESHOWWINDOW;
 
     // Start the child process.
-    if( !CreateProcess(nullptr,   // No module name (use command line)
+    if (!CreateProcess(nullptr,   // No module name (use command line)
         hb_parc(1),        // Command line
         nullptr,           // Process handle not inheritable
         nullptr,           // Thread handle not inheritable

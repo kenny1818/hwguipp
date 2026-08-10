@@ -659,7 +659,7 @@ HB_FUNC(HWG_SETADJOPTIONS)
     gtk_adjustment_set_page_size(adj, value);
     lChanged = 1;
   }
-  // if( lChanged ) {
+  // if (lChanged) {
   //    gtk_adjustment_changed(adj);
   // }
   hb_retl(lChanged);
@@ -1397,7 +1397,7 @@ HB_FUNC(HWG_CREATESPLITTER)
   }
   gtk_widget_set_size_request(hCtrl, hb_parni(6), hb_parni(7));
   /*
-  if( box ) {
+  if (box) {
      gtk_fixed_put(box, static_cast<GtkWidget*>(fbox), hb_parni(4), hb_parni(5));
      gtk_widget_set_size_request(static_cast<GtkWidget*>(fbox), hb_parni(6), hb_parni(7));
   }

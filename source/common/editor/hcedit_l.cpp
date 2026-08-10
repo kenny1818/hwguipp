@@ -249,7 +249,7 @@ int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int32_t 
           ptr = g_utf8_prev_char(ptr);
           i--;
         }
-        if (!i && !bLastInFew) { // if( !i )
+        if (!i && !bLastInFew) { // if (!i)
           i = i1;
           break;
         }
@@ -275,7 +275,7 @@ int ted_CalcItemWidth(PangoLayout *layout, char *szText, TEDFONT *font, int32_t 
         i--;
       }
       if (i || bLastInFew) {
-        // if( i )
+        // if (i)
         i1 = i;
       }
     }

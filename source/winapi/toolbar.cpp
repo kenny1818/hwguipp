@@ -176,7 +176,7 @@ HB_FUNC(HWG_TOOLBAR_SETDISPINFO)
     pDispInfo->szText[HB_SIZEOFARRAY(pDispInfo->szText) - 1] = 0;
 #if 0
       // is it necessary?
-      if( !pDispInfo->hinst ) {
+      if (!pDispInfo->hinst) {
          pDispInfo->lpszText = pDispInfo->szText;
       }
 #endif

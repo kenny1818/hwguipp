@@ -358,7 +358,7 @@ HB_FUNC(HWG__CREATEPROPERTYSHEETPAGE)
 
   h = CreatePropertySheetPage(&psp);
   hb_retptr(h);
-  // if( pdlgtemplate ) {
+  // if (pdlgtemplate) {
   //    s_ReleaseDlgTemplate(pdlgtemplate);
   // }
   hb_strfree(hTitle);

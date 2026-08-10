@@ -838,11 +838,13 @@ HB_FUNC(HWG_DECREASEHOLDERS)
 #if 0
      auto pObject = hb_param(1, Harbour::Item::OBJECT);
 #ifndef UIHOLDERS
-     if( pObject->item.asArray.value->ulHolders )
+     if (pObject->item.asArray.value->ulHolders) {
         pObject->item.asArray.value->ulHolders--;
+     }
 #else
-     if( pObject->item.asArray.value->uiHolders )
+     if (pObject->item.asArray.value->uiHolders) {
         pObject->item.asArray.value->uiHolders--;
+     }
 #endif
 #endif
   auto hWnd = hwg_par_HWND(1);
@@ -954,7 +956,7 @@ HB_FUNC(HWG_BRINGTOTOP)
 
   // ForegroundThreadID = GetWindowThreadProcessID(GetForegroundWindow(),nullptr);
   // ThisThreadID = GetWindowThreadPRocessId(hWnd, nullptr);
-  //    if( AttachThreadInput(ThisThreadID, ForegroundThreadID, TRUE) ) {
+  //    if (AttachThreadInput(ThisThreadID, ForegroundThreadID, TRUE)) {
 
   BringWindowToTop(hWnd); // IE 5.5 related hack
   SetForegroundWindow(hWnd);

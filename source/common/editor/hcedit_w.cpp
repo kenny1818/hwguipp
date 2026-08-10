@@ -136,10 +136,10 @@ int hced_utf8bytes( char * szText, int32_t iLen )
   HB_WCHAR wc;
 
   for( ul = 0; ul < nLen && iLen; ) {
-     if( hb_cdpUTF8ToU16NextChar( szText[ul], &n, &wc ) ) {
+     if (hb_cdpUTF8ToU16NextChar( szText[ul], &n, &wc )) {
         ++ul;
      }
-     if( n == 0 ) {
+     if (n == 0) {
         --iLen;
      }
   }
@@ -212,7 +212,7 @@ int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int32_t *iRealL
         while (i > 0 && !strchr(szDelimiters, *(szText + i))) {
           i--;
         }
-        if (!i && !bLastInFew) { // if( !i )
+        if (!i && !bLastInFew) { // if (!i)
           i = i1;
           break;
         }
@@ -234,7 +234,7 @@ int ted_CalcItemWidth(TEDIT *pted, char *szText, TEDATTR *pattr, int32_t *iRealL
       while (i && !strchr(szDelimiters, *(szText + i)) && !strchr(szDelimiters, *(szText + i - 1))) {
         i--;
       }
-      if (i || bLastInFew) { // if( i )
+      if (i || bLastInFew) { // if (i)
         i1 = i;
       }
     }
@@ -836,7 +836,7 @@ HB_FUNC(HCED_LINEOUT)
   iHeight++;
   /*
   for( i = 0, lasti = 0; i <= iPrinted; i++ ) {
-     if( i == iPrinted || ( pattr + i )->iFont != ( pattr + lasti )->iFont ) {
+     if (i == iPrinted || ( pattr + i )->iFont != ( pattr + lasti )->iFont) {
         font = ( (pted->hDCPrn)? pted->pFontsPrn : pted->pFontsScr ) +
               ( pattr + lasti )->iFont;
         iHeight = max( iHeight, font->tm.tmHeight + font->tm.tmExternalLeading ) + 1;
