@@ -90,7 +90,7 @@ BOOL Array2Rect(PHB_ITEM aRect, RECT *rc)
   return FALSE;
 }
 
-#if 0
+#if 1
 PHB_ITEM Rect2Array(RECT *rc) // using heap
 {
   auto aRect = hb_itemArrayNew(4);
